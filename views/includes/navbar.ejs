@@ -1,0 +1,332 @@
+
+<!-- START: Improved Navbar (replace your old navbar) -->
+<style>
+/* ---------- Variables ---------- */
+:root{
+  --brand: #002455;
+  --accent: #0b63dd;
+  --muted: #7a8694;
+  --bg: #ffffff;
+  --card: #ffffff;
+  --text: #0f1724;
+  --border: #e6e6e6;
+  --radius: 10px;
+}
+
+/* dark variables */
+body.dark-mode{
+  --bg: #0b1220;
+  --card: #07203a;
+  --text: #eaf2ff;
+  --muted: #98a6bf;
+  --border: #12314b;
+}
+
+/* ---------- Reset & base ---------- */
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer}
+
+/* ---------- Main header ---------- */
+.mt-header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  gap:16px;
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  z-index:1100;
+  transition:background .25s, color .25s;
+  box-shadow:0 2px 8px rgba(2,6,23,0.06);
+}
+
+/* logo */
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  font-size:20px;
+  color:var(--brand);
+  letter-spacing:0.6px;
+  white-space:nowrap;
+}
+
+/* left / center / right groups */
+.header-left, .header-center, .header-right{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+/* center nav (desktop) */
+.nav-desktop{
+  display:flex;
+  gap:28px;
+  align-items:center;
+}
+.nav-desktop a{
+  color:var(--text);
+  font-weight:500;
+  font-size:15px;
+  padding:6px 8px;
+  border-radius:6px;
+  transition:color .15s, background .15s;
+}
+.nav-desktop a:hover{ color:var(--brand); background: rgba(3,57,99,0.04) }
+
+/* search */
+.search-wrapper{ position:relative; width:260px; }
+.inp-search{
+  width:100%;
+  padding:9px 14px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  font-size:14px;
+  transition:border-color .15s, background .15s;
+}
+.inp-search:focus{ outline:none; border-color:var(--brand); box-shadow:0 4px 18px rgba(2,6,23,0.06) }
+
+.suggestions{
+  position:absolute;
+  left:0; right:0;
+  top:110%;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  box-shadow:0 6px 18px rgba(2,6,23,0.08);
+  max-height:240px; overflow:auto;
+  display:none;
+  z-index:1200;
+}
+.suggestion-item{ padding:10px 12px; color:var(--text); cursor:pointer }
+.suggestion-item:hover{ background: rgba(3,57,99,0.04) }
+
+/* auth buttons */
+.header-buttons{ display:flex; gap:10px; align-items:center }
+.create-btn{
+  padding:8px 14px; border-radius:8px; background:var(--brand);
+  color:white; font-weight:600; font-size:14px; border:none;
+  box-shadow:0 4px 12px rgba(2,6,23,0.06);
+}
+.auth-btn{
+  padding:7px 12px; border-radius:8px; background:transparent;
+  border:1px solid var(--border); color:var(--text); font-weight:600;
+}
+
+/* dark toggle */
+.dark-toggle{
+  background:transparent; border:none; font-size:18px; color:var(--text)
+}
+
+/* hamburger - mobile */
+.hamburger{ display:none; font-size:26px; background:transparent; border:none; color:var(--text) }
+
+/* second navbar (sticky under main) */
+.second-navbar{
+  position:sticky;
+  top:64px;
+  z-index:1099;
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  padding:10px 20px;
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  transition:background .25s;
+}
+.second-navbar a{ color:var(--text); font-weight:600; font-size:15px }
+.second-navbar a:hover{ color:var(--brand) }
+
+/* ---------- responsive rules ---------- */
+@media (max-width: 900px){
+  .nav-desktop{ display:none }
+  .search-wrapper{ display:none }
+  .hamburger{ display:block }
+  .header-center{display:none}
+  .logo{font-size:18px}
+}
+
+/* mobile menu panel */
+.mobile-menu{
+  display:none;
+  position:fixed;
+  top:64px; left:0; right:0;
+  background:var(--card);
+  border-top:1px solid var(--border);
+  z-index:1098;
+  padding:18px;
+  box-shadow:0 6px 20px rgba(2,6,23,0.06);
+}
+.mobile-menu.show{ display:block }
+.mobile-grid{ display:flex; gap:12px; flex-direction:column }
+.mobile-search{ width:100%; }
+.mobile-item{ padding:10px 12px; border-radius:8px; background:transparent; color:var(--text) }
+
+/* small tweaks for suggestions in dark */
+body.dark-mode .suggestion-item:hover{ background: rgba(255,255,255,0.03) }
+</style>
+
+<header class="mt-header">
+
+    <div class="logo">ENGGNOTESCLUB</div>
+
+    <div class="hamburger" onclick="toggleMobile()">☰</div>
+
+    <nav class="nav-desktop">
+        <a href="/home">Platform</a>
+        <a href="/notes/new">📑 Create Notes</a>
+
+        <div class="search-wrapper">
+            <input type="text" id="searchBoxDesktop" class="inp-search" placeholder="Search notes...">
+            <div id="suggestionsDesktop" class="suggestions"></div>
+        </div>
+
+        <div class="header-buttons">
+            <% if (!currUser) { %>
+                <a class="create-btn" href="/signup">Sign Up</a>
+                <a class="create-btn" href="/login">Log In</a>
+            <% } %>
+            <% if (currUser) { %>
+                <a class="create-btn" href="/logout">Log Out</a>
+            <% } %>
+        </div>
+
+        <button id="darkModeToggle" class="dark-toggle">🌙</button>
+
+    </nav>
+</header>
+
+<div id="mobileMenu" class="mobile-menu">
+    <a href="/home">Platform</a>
+    <a href="/notes/new">📑 Create Notes</a>
+
+    <input type="text" id="searchBoxMobile" class="inp-search" placeholder="Search notes...">
+    <div id="suggestionsMobile" class="suggestions"></div>
+
+    <% if (!currUser) { %>
+        <a href="/signup">Sign Up</a>
+        <a href="/login">Log In</a>
+    <% } %>
+
+    <% if (currUser) { %>
+        <a href="/logout">Log Out</a>
+    <% } %>
+</div>
+
+
+<!-- 
+<nav class="second-navbar">
+    <a href="/home">Home</a>
+    <a href="/home">Platform</a>
+    <a href="/notes">Resources</a>
+    <a href="/notes">Question Papers</a>
+    <a href="/notes/quiz">Quiz</a>
+</nav> -->
+
+
+<script>
+/* ---------- Toggle mobile menu ---------- */
+function toggleMobile(){
+  const panel = document.getElementById("mobileMenu");
+  const isShown = panel.classList.toggle("show");
+  panel.setAttribute("aria-hidden", !isShown);
+}
+
+/* ---------- Dark mode (persist) ---------- */
+const darkToggle = document.getElementById("darkModeToggle");
+
+// Apply saved theme on load
+if (localStorage.getItem("site-theme") === "dark"){
+  document.body.classList.add("dark-mode");
+  darkToggle.textContent = "☀";
+  darkToggle.setAttribute("aria-pressed","true");
+} else {
+  darkToggle.textContent = "🌙";
+  darkToggle.setAttribute("aria-pressed","false");
+}
+
+darkToggle.addEventListener("click", () => {
+  const isDark = document.body.classList.toggle("dark-mode");
+  darkToggle.textContent = isDark ? "☀" : "🌙";
+  darkToggle.setAttribute("aria-pressed", String(isDark));
+  localStorage.setItem("site-theme", isDark ? "dark" : "light");
+});
+
+/* ---------- Simple Fuse.js search (in-memory subjects) ---------- */
+/* You already load Fuse earlier on page. If not, add <script src="https://cdn.jsdelivr.net/npm/fuse.js"> */
+
+const subjects = [
+  {name:"Mathematics", url:"/notes/mathematics"},
+  {name:"Physics", url:"/notes/physics"},
+  {name:"Chemistry", url:"/notes/chemistry"},
+  {name:"Computer Networks", url:"/notes/networks"},
+  {name:"Data Structures", url:"/notes/datastructures"},
+  {name:"Engineering Drawing", url:"/notes/ed"},
+  {name:"Operating Systems", url:"/notes/os"},
+  {name:"Digital Electronics", url:"/notes/de"},
+  {name:"Thermodynamics", url:"/notes/thermo"},
+];
+
+const fuse = new Fuse(subjects, { keys:["name"], threshold:0.35, ignoreLocation:true });
+
+function setupSearch(inputId, suggestionsId){
+  const input = document.getElementById(inputId);
+  const suggest = document.getElementById(suggestionsId);
+  if(!input || !suggest) return;
+  input.addEventListener("input", () => {
+    const q = input.value.trim();
+    suggest.innerHTML = "";
+    if(!q) { suggest.style.display="none"; return; }
+    const results = fuse.search(q, {limit:6});
+    if(!results.length){ suggest.style.display="none"; return; }
+    results.forEach(r=>{
+      const d = document.createElement("div");
+      d.className = "suggestion-item";
+      d.textContent = r.item.name;
+      d.onclick = ()=> window.location.href = r.item.url;
+      suggest.appendChild(d);
+    });
+    suggest.style.display="block";
+  });
+
+  // hide suggestions on outside click
+  document.addEventListener("click", (e) => {
+    if (!input.contains(e.target) && !suggest.contains(e.target)) {
+      suggest.style.display = "none";
+    }
+  });
+}
+
+// init both
+setupSearch("searchBoxDesktop","suggestionsDesktop");
+setupSearch("searchBoxMobile","suggestionsDesktop"); // mobile re-uses same suggestions container
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

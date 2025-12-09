@@ -1,0 +1,70 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-3">
+    <div class="col-8 offset-2">
+            <br>
+        <h3>Edit your Notes </h3>
+         <form method="POST" action="/notes/<%= note._id%>?_method=PUT"
+            novalidate class="needs-validation" enctype="multipart/form-data">
+
+        <div class="mb-3 ">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" name="note[subject]" value="<%= note.subject %>" class="form-control"
+            required>
+            <div class="valid-feedback">Title looks good</div>
+        </div>
+       
+        <div class="mb-3 ">
+            <label for="branch" class="form-label">Branch</label>
+            <textarea name="note[branch]"  class="form-control"  required> <%= note.branch %>
+               </textarea>
+               <div class="invalid-feedback">Please enter a Branch</div>
+        </div>
+        
+        <div class="mb-3 ">
+            <label for="notes" class="form-label">Upload New Notes</label>
+            <input type="file" name="note[notes]" class="form-control"
+            >
+           
+        </div>
+
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label for="semester" class="form-label">Semester</label>
+                <input type="number" name="note[semester]" value="<%= note.semester %>" class="form-control"
+                required>
+                <div class="invalid-feedback">Please enter a valid semester</div>
+            </div>
+
+           
+            
+        </div>
+
+        <div class="mb-3 ">
+            <label for="resources" class="form-label">Resources</label>
+            <input type="text" name="note[resources]" value="<%= note.resources %>" class="form-control"
+            required>
+            <div class="invalid-feedback">Please enter a valid Resources</div>
+        </div>
+
+        <button class="btn btn-dark edit-btn mt-3">Edit</button>
+        <br><br>
+    </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

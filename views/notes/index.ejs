@@ -1,0 +1,197 @@
+
+
+ <% layout("layouts/boilerplate") %>
+
+<body>
+
+<style>
+    body {
+        background-color: #F4F6F8;
+        font-family: 'Inter', sans-serif;
+        color: #1E293B;
+    }
+    h2, h3 {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* Header */
+    .notes-header {
+        text-align: center;
+        padding-top: 35px;
+    }
+    .notes-header h2 {
+        font-size: 38px;
+        font-weight: 700;
+    }
+
+    /* Quiz Button */
+    .quiz-button {
+        background: #3A4EFF;
+        padding: 12px 26px;
+        border-radius: 10px;
+        border: none;
+        font-weight: 600;
+        color: #ffffff;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+    .quiz-button:hover {
+        background: #004EEB;
+        transform: translateY(-3px);
+    }
+
+    /* Notes Section */
+    .notes-list {
+        width: 85%;
+        margin: 40px auto;
+    }
+
+    .note-card {
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 28px;
+        margin-bottom: 22px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        transition: all 0.35s ease;
+        cursor: pointer;
+        border-left: 6px solid transparent;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Hover animation */
+    .note-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        border-left: 6px solid #3A4EFF;
+    }
+
+    /* Subject + icon wrapper */
+    .note-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* Icon style */
+    .subject-icon {
+        width: 42px;
+        height: 42px;
+        object-fit: contain;
+        margin-right: 14px;
+    }
+
+    /* Title text */
+    .subject-text {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .note-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .note-semester {
+        font-size: 15px;
+        color: #6B7280;
+        margin-top: 6px;
+    }
+
+    /* Arrow animation */
+    .arrow {
+        font-size: 24px;
+        transition: transform 0.3s ease;
+    }
+
+    .arrow.rotate {
+        transform: rotate(90deg);
+    }
+
+    /* EXPAND SECTION */
+    .expand-content {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.35s ease;
+        padding-left: 5px;
+    }
+
+    .expand-content.open {
+        max-height: 300px;
+        opacity: 1;
+        margin-top: 12px;
+    }
+
+    a.notes-links {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
+
+
+<!-- HEADER -->
+<div class="notes-header">
+    <h2>Available Notes</h2>
+</div>
+
+<!-- QUIZ BUTTON -->
+<div style="text-align:center; margin-top:15px;">
+    <a href="/quiz">
+        <button class="quiz-button">📚 Play Quiz</button>
+    </a>
+</div>
+
+<!-- NOTES LIST -->
+<div class="notes-list">
+
+    <% allNotes.forEach(notes => { %>
+
+        <div class="note-card">
+
+            <!-- CARD TOP ROW -->
+            <div class="note-header" onclick="toggleExpand('<%= notes._id %>')">
+
+                <!-- LEFT SECTION: ICON + TITLE -->
+                <div class="subject-text">
+                    <!-- AUTO SUBJECT ICON -->
+                    
+                        
+
+                    <div>
+                        <h3 class="note-subject"><%= notes.subject %></h3>
+                        <p class="note-semester">Semester: <%= notes.semester %></p>
+                    </div>
+                </div>
+
+                <!-- ARROW -->
+                <span id="arrow-<%= notes._id %>" class="arrow">➤</span>
+            </div>
+
+            <!-- EXPANDABLE CONTENT -->
+            <div id="expand-<%= notes._id %>" class="expand-content">
+                <p><b>Modules:</b> <%= notes.module %></p>
+                <p><b>Description:</b> <%= notes.description || "No description available." %></p>
+                <a href="/notes/<%= notes._id %>" class="btn btn-primary btn-sm">View Full Note</a>
+            </div>
+
+        </div>
+
+    <% }) %>
+
+</div>
+
+
+<script>
+    function toggleExpand(id) {
+        const content = document.getElementById("expand-" + id);
+        const arrow = document.getElementById("arrow-" + id);
+
+        content.classList.toggle("open");
+        arrow.classList.toggle("rotate");
+    }
+</script>
+
+</body>

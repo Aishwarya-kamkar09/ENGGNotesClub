@@ -1,0 +1,171 @@
+<!-- <% layout("/layouts/boilerplate") %>
+
+    <div class="row mt-3">
+        <h1 class="col-6 offset-2">Login</h1>
+        <div class="col-8 offset-2">
+            <form action="/login" method="POST" class="needs-validation" novalidate>
+                <div class="mb-3 ">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" 
+                        name="username"
+                        id="username"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                 <div class="mb-3 ">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" 
+                        name="password"
+                        id="password"
+                        class="form-control"
+                        required>
+                        <br>
+                        <button class="btn btn-success">Login</button>
+                        <a href="/forgot-password">Forgot Password</a>
+                </div>
+            </form>
+        </div>
+    </div>  -->
+
+
+
+
+
+
+
+
+
+
+
+<% layout("/layouts/boilerplate") %>
+
+<div style="display:flex;justify-content:center;align-items:center;height:85vh;">
+
+<div class="auth-card">
+
+    <h2>Login</h2>
+    <p>Welcome back</p> -
+
+    <!-- ✅ GOOGLE LOGIN BUTTON -->
+    <a href="/auth/google" class="google-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png">
+        Sign in with Google
+    </a>
+
+    <hr style="margin:18px 0;">
+
+    <!-- ✅ EMAIL LOGIN FORM -->
+    <form action="/login" method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <button class="email-btn">Sign in with Email</button>
+        <a href="/forgot-password" style="margin-top: 10px; display: block;">Forgot Password</a>
+        
+    </form>
+
+</div>
+
+</div>
+
+<style>
+.auth-card{
+    width:360px;
+    background:#fff;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(0,0,0,.1);
+    border-radius:10px;
+}
+.auth-card input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+.email-btn{
+    background:#0074e8;
+    color:#fff;
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:5px;
+    margin-top:10px;
+}
+.google-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    border:1px solid #ccc;
+    background:#fff;
+    padding:12px;
+    margin-top:12px;
+    border-radius:5px;
+    cursor:pointer;
+    text-decoration:none;
+    color:#333;
+}
+.google-btn img{
+    width:18px;
+    margin-right:8px;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Login — EnggNotesHub</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="card">
+      <h1>Login</h1>
+      <p class="subtitle">Welcome back — login to continue</p>
+
+      <form id="loginForm">
+        <input id="email" class="input" type="email" placeholder="Email" required />
+        <div class="password-wrap">
+          <input id="password" class="input" type="password" placeholder="Password" required />
+          <span class="eye" id="eye">👁</span>
+        </div>
+
+        <button class="btn" type="submit">Login</button>
+      </form>
+
+      <div class="small">
+        <a href="/signup.html">Create account</a> • <a href="#" id="forgotLink">Forgot password?</a>
+      </div>
+
+      <hr style="margin:16px 0;" />
+      <div style="display:flex;gap:8px;">
+        <a href="/oauth/google" class="btn" style="flex:1;background:#fff;border:1px solid #e6e9ef;color:#111">Google</a>
+        <a href="/oauth/microsoft" class="btn" style="flex:1;background:#fff;border:1px solid #e6e9ef;color:#111">Microsoft</a>
+        <a href="/oauth/apple" class="btn" style="flex:1;background:#fff;border:1px solid #e6e9ef;color:#111">Apple</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html> -->

@@ -1,0 +1,226 @@
+body{
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container{
+    flex: 1;
+}
+.navbar {
+    width: 100% !important;
+    height: 5rem;
+    background-color: white;
+}
+.nav-link{
+    color: #222222 !important;
+}
+
+
+.card{
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+.card-body{
+    padding: 0 !important;
+}
+.card-text p{
+    font-weight: 400;
+}
+.note-link{
+    text-decoration: none;
+}
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+.card-img-overlay i:hover{
+    opacity: 0.2;
+    color: red;
+}
+.add-btn{
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+.show-img{
+    height: 50vh;
+}
+.btns{
+    display: flex;
+}
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+footer{
+    background: white !important;
+    padding: 25px 0;
+    text-align: center;
+    color: #0d47a1;
+    border-top: 1px solid #ddd;
+    margin: 0;
+}
+
+
+/* Autharition */
+:root {
+  --accent: #3B38A0;
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --muted: #657085;
+}
+
+* { box-sizing: border-box; font-family: Inter, Arial, sans-serif; }
+
+body {
+  margin: 0;
+  background: linear-gradient(120deg, rgba(59,56,160,0.03), transparent 30%), var(--bg);
+  color: #111827;
+}
+
+/* container center */
+.auth-wrap {
+  min-height: 100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 24px;
+}
+
+/* card */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 26px;
+  box-shadow: 0 10px 30px rgba(16,24,40,0.06);
+}
+
+/* heading */
+h1 { font-size: 20px; margin:0 0 6px; color: var(--accent); }
+p.subtitle { margin:0 0 16px; color: var(--muted); font-size: 14px; }
+
+/* inputs */
+.input {
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid #e6e9ef;
+  margin-bottom:12px;
+  font-size:14px;
+}
+
+/* button */
+.btn {
+  width:100%;
+  padding:12px;
+  border:none;
+  background:var(--accent);
+  color:#fff;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+  font-size:15px;
+}
+.btn.secondary { background: transparent; border: 1px solid #e6e9ef; color:#111; }
+
+/* small links */
+.small { text-align:center; margin-top:12px; font-size:14px; }
+.small a{ color:var(--accent); text-decoration:none; }
+
+/* password field with eye icon */
+.password-wrap { position:relative; }
+.eye {
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform: translateY(-50%);
+  cursor:pointer;
+  opacity:0.7;
+}
+
+/* responsive: show two-column on wide screens if needed */
+@media (min-width: 900px) {
+  .columns {
+    display:flex;
+    gap:32px;
+    align-items:flex-start;
+    justify-content:center;
+  }
+  .card { max-width: 360px; }
+}
+
+
+/* Light mode (default) */
+body {
+  background: #ffffff !important;
+  color: #111 !important;
+  transition: 0.3s ease-in-out;
+  padding-top: 80px;
+}
+
+/* Navbar + footer default */
+nav, footer {
+  background: #ffffff !important;
+  color: #111 !important;
+  transition: 0.3s ease-in-out;
+}
+
+/* ===================== */
+/* DARK MODE */
+/* ===================== */
+
+body.dark-mode {
+  background: #0d1117 !important; /* smooth dark */
+  color: #eaeaea !important;
+}
+
+/* navbar + footer */
+body.dark-mode nav,
+body.dark-mode footer {
+  background: #002455 !important; /* your color */
+  color: #ffffff !important;
+}
+
+/* buttons */
+body.dark-mode button,
+body.dark-mode .btn {
+  background: #004a99 !important;
+  color: white !important;
+}
+
+/* cards or white boxes */
+body.dark-mode .card,
+body.dark-mode .box,
+body.dark-mode .form-control,
+body.dark-mode .alert {
+  background: #1b1f24 !important;
+  color: #eaeaea !important;
+  border-color: #2c313a !important;
+}
+
+/* links */
+body.dark-mode a {
+  color: #4dabff !important;
+}
+
+/* dark mode toggle button */
+.dark-toggle {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 22px;
+  cursor: pointer;
+}

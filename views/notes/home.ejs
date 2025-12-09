@@ -1,0 +1,295 @@
+
+ <% layout("layouts/boilerplate") %>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Notes Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        section {
+            padding: 60px 0;
+        }
+
+        /* Header */
+        header {
+            background-color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3A4EFF;
+        }
+        .search-bar {
+            flex: 1;
+            margin: 0 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #6B7280;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: #3A4EFF;
+            border-radius: 8px;
+            padding: 12px 22px;
+            font-weight: 600;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-primary:hover {
+            background: #004EEB;
+        }
+        .btn-secondary {
+            background: #F4F6F8;
+            padding: 12px 22px;
+            border-radius: 8px;
+            color: #1E293B;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #FFFFFF;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1E293B;
+        }
+        .hero p {
+            font-size: 18px;
+            color: #6B7280;
+            margin-bottom: 40px;
+        }
+        .hero img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 40px;
+        }
+
+        /* Subjects Grid */
+        .subjects {
+            background-color: #F4F6F8;
+        }
+        .subjects h2 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: #1E293B;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1E293B;
+        }
+        .card p {
+            color: #6B7280;
+        }
+
+        /* Notes Page */
+        .notes {
+            background-color: #F4F6F8;
+        }
+        .notes h2 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: #1E293B;
+        }
+        .note-card {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        .note-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1E293B;
+        }
+        .note-card p {
+            color: #6B7280;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1E293B;
+            color: #FFFFFF;
+            padding: 40px 0;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .footer-column h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+        }
+        .footer-column ul {
+            list-style: none;
+        }
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+        .footer-column a {
+            color: #6B7280;
+            text-decoration: none;
+        }
+        .footer-column a:hover {
+            color: #FFFFFF;
+        }
+
+        /* Success/Info/Error Classes */
+        .success {
+            color: #16A34A;
+        }
+        .info {
+            color: #0EA5E9;
+        }
+        .error {
+            color: #DC2626;
+        }
+    </style>
+</head>
+<body>
+   
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 60px; margin-top: 120px; background: var(--card-bg);">
+        <div class="container" style="padding: 0; margin-top: 80px;">
+            <h1>The Smartest Place of Engineering</h1>
+            <h2>All Univercities Notes in one Place</h2>
+            <h3>Master Engineering Degree with this Expert Notes</h3>
+            <p>Access high-quality, organized notes for all your engineering subjects. Learn efficiently and ace your exams.</p>
+            <!-- <img src="https://via.placeholder.com/800x400?text=Engineering+Illustration" alt="Engineering Illustration"> -->
+
+            <a href="/login">
+                    <button class="btn-primary">Get Started →</button>
+            </a>
+        </div>
+    </section>
+
+    <!-- Subjects Grid -->
+    <section class="subjects">
+        <div class="container">
+            <h2>Explore Subjects</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Thermodynamics</h3>
+                    <p>Comprehensive notes on heat transfer, energy systems, and more.</p>
+                </div>
+                <div class="card">
+                    <h3>Structural Engineering</h3>
+                    <p>Learn about beams, loads, and material strength.</p>
+                </div>
+                <div class="card">
+                    <h3>Electrical Circuits</h3>
+                    <p>Fundamentals of circuits, Ohm's law, and AC/DC analysis.</p>
+                </div>
+                <div class="card">
+                    <h3>Fluid Mechanics</h3>
+                    <p>Principles of fluid flow, pressure, and hydraulics.</p>
+                </div>
+                <div class="card">
+                    <h3>Materials Science</h3>
+                    <p>Properties of metals, polymers, and composites.</p>
+                </div>
+                <div class="card">
+                    <h3>Control Systems</h3>
+                    <p>Feedback loops, stability, and PID controllers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notes Page Example -->
+    <section class="notes">
+        <div class="container">
+            <h2>Sample Notes</h2>
+            <div class="note-card">
+                <h3>Introduction to Thermodynamics</h3>
+                <p>Thermodynamics is the branch of physics that deals with heat, work, and temperature, and their relation to energy, radiation, and physical properties of matter. The behavior of these quantities is governed by the four laws of thermodynamics.</p>
+                <p class="info">Note: This is a foundational topic for mechanical engineering.</p>
+                <!-- <button class="btn-primary">Download PDF</button> -->
+            </div>
+            <div class="note-card">
+                <h3>Beam Analysis in Structures</h3>
+                <p>Beams are structural elements that primarily resist bending. The analysis involves calculating shear forces, bending moments, and deflections under various loads.</p>
+                <p class="success">Tip: Use moment diagrams for better visualization.</p>
+                <!-- <button class="btn-primary">Download PDF</button> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    
+</body>
+</html>

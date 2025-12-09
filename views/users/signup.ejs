@@ -1,0 +1,148 @@
+<% layout("/layouts/boilerplate") %>
+
+
+    <div class="row mt-3">
+        <h1 class="col-6 offset-2">SignUp on engineers best friend</h1>
+        <div class="col-8 offset-2">
+            <form action="/signup" method="POST" class="needs-validation" novalidate>
+                <div class="mb-3 ">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" 
+                        name="username"
+                        id="username"
+                        class="form-control"
+                        required>
+
+                    <div class="valid-feedback">Looks good</div>
+
+                </div>
+
+                 <div class="mb-3 ">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" 
+                        name="email"
+                        id="email"
+                        class="form-control"
+                        required>
+                </div>
+
+                 <div class="mb-3 ">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" 
+                        name="password"
+                        id="password"
+                        class="form-control"
+                        required>
+                        <br>
+                        <button class="btn btn-success">SignUp</button>
+                </div>
+            </form>
+        </div>
+    </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+<!-- <div style="display:flex;justify-content:center;align-items:center;height:85vh;">
+
+<div class="auth-card">
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/MapTiler_logo.svg" class="logo">
+
+    <h3>Create Account</h3>
+    <p>Engineer’s best friend starts here</p>
+
+    <form action="/signup" method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <button class="email-btn">Create Account</button>
+    </form>
+
+</div>
+
+</div> -->
+
+<!-- <style>
+.auth-card{
+    width:360px;
+    background:#fff;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(0,0,0,.1);
+    border-radius:10px;
+}
+.logo{
+    width:90px;
+    margin-bottom:10px;
+}
+.auth-card input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+.email-btn{
+    background:#0074e8;
+    color:#fff;
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:5px;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- <!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Signup — EnggNotesHub</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="card">
+      <h1>Create account</h1>
+      <p class="subtitle">Sign up to access saved notes and chats</p>
+
+      <form id="signupForm">
+        <input id="name" class="input" type="text" placeholder="Full name" required />
+        <input id="email" class="input" type="email" placeholder="Email" required />
+        <input id="password" class="input" type="password" placeholder="Password (min 6 chars)" required />
+        <input id="confirm" class="input" type="password" placeholder="Confirm password" required />
+
+        <button class="btn" type="submit">Signup</button>
+      </form>
+
+      <div class="small">
+        <a href="/login.html">Already have an account?</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html> -->

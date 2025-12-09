@@ -1,0 +1,290 @@
+
+
+
+<% layout("/layouts/boilerplate") %>
+
+<style>
+/* ================= GLOBAL ================= */
+body {
+    background: #eef2f7;
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 260px;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    height: quto;
+    backdrop-filter: blur(20px);
+    border-right: 1px solid #e6e9f5;
+    padding: 30px 20px;
+    transition: 0.3s ease;
+    z-index: 10;
+}
+
+.sidebar.shrink {
+    width: 80px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    font-size: 15px;
+    color: #1E293B;
+    text-decoration: none;
+    margin-top: 8px;
+    border-radius: 10px;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.sidebar-nav a.active {
+    background: #3A4EFF;
+    color: white !important;
+}
+
+/* Sidebar toggle (Desktop only) */
+.sidebar-toggle {
+    position: absolute;
+    right: -18px;
+    top: 20px;
+    background: #3A4EFF;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(58, 78, 255, 0.4);
+}
+
+/* ================= MOBILE SIDEBAR ================= */
+@media(max-width: 768px) {
+
+    .sidebar {
+        transform: translateX(-260px);
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    /* hamburger button */
+    .mobile-menu-btn {
+        position: fixed;
+        left: 15px;
+        top: 15px;
+        background: #3A4EFF;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 10px;
+        z-index: 2000;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .sidebar-toggle {
+        display: none;
+    }
+}
+
+/* ================= MAIN CONTENT ================= */
+.main-content {
+    padding: 40px 40px 40px 300px;
+    transition: 0.3s ease;
+}
+
+.main-content.shrink {
+    padding-left: 120px;
+}
+
+/* MOBILE MAIN CONTENT FIX */
+@media(max-width: 768px) {
+    .main-content {
+        padding: 100px 20px; 
+    }
+}
+
+/* ================= GLASS HEADER ================= */
+.glass-header {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(20px);
+    padding: 30px;
+    border-radius: 30px;
+    border: 1px solid #dbe1f5;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+}
+
+.glass-header h1 {
+    font-size: 32px;
+}
+
+@media(max-width: 600px) {
+    .glass-header h1 {
+        font-size: 24px;
+    }
+}
+
+/* ================= CARDS ================= */
+.info-card {
+    background: white;
+    padding: 25px;
+    border-radius: 22px;
+    border: 1px solid #e4e8f3;
+    margin-top: 25px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+/* Section content */
+.section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+
+/* ================= DOWNLOAD ITEMS ================= */
+.module-item {
+    background: #f8faff;
+    padding: 16px 22px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    border: 1px solid #e1e6fa;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media(max-width: 600px) {
+    .module-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+.btn-download {
+    background: linear-gradient(90deg, #3A4EFF, #6274ff);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+</style>
+
+
+<!-- MOBILE MENU BUTTON -->
+<!-- <div class="mobile-menu-btn" onclick="toggleMobileSidebar()">☰ Menu</div> -->
+
+
+<!-- SIDEBAR -->
+ <div class="sidebar" id="sidebar">
+
+    <div class="sidebar-toggle" onclick="toggleSidebar()">❮</div>
+
+    <!-- <h2>NotesHub</h2> -->
+
+    <div class="sidebar-nav mt-4">
+        <a href="/home" >🏠 <span class="link-text">Home</span></a>
+        <a href="/notes">📘 <span class="link-text">All Notes</span></a>
+        <a href="/quiz" >🧠 <span class="link-text">Play Quiz</span></a>
+        <a href="/profile" >👤 <span class="link-text">Profile</span></a>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content" id="mainContent">
+
+    <!-- FULL-WIDTH GLASS HEADER -->
+    <div class="glass-header">
+        <h1><%= note.subject %></h1>
+        <p class="subtitle">Branch: <%= note.branch %> | Semester: <%= note.semester %></p>
+        <p class="subtitle">Uploaded by @<%= note.owner.username %></p>
+    </div>
+
+    <!-- NOTES SECTION -->
+    <div class="info-card">
+        <div class="section-header" onclick="toggleSection('notesSec','arrow1')">
+            <h3>📚 Notes PDF</h3>
+            <span id="arrow1" class="arrow">▼</span>
+        </div>
+
+        <div id="notesSec" class="section-content">
+              <% if(note.resources && note.resources.notes) { %>
+              <% Object.keys(note.resources.notes).forEach(module => { %>
+            <div class="module-item">
+              📘 <%= module.replace("_"," ").toUpperCase() %>
+                <a class="btn-download" href="/notes/download/<%= note._id %>/<%= module %>" target="_blank">Download</a>
+            </div>
+            <% }) %>
+            <% } %>
+        </div>
+    </div>
+
+
+  
+
+
+
+    <!-- QUESTION PAPERS -->
+    <div class="info-card">
+        <div class="section-header" onclick="toggleSection('paperSec','arrow2')">
+            <h3>📄 Previous Question Papers</h3>
+            <span id="arrow2" class="arrow">▼</span>
+        </div>
+
+        <div id="paperSec" class="section-content">
+            <% papers.forEach((paper,index) => { %>
+            <div class="module-item">
+                Paper <%= index+1 %>
+                <a class="btn-download" href="<%= paper %>" target="_blank">Download</a>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+
+</div>
+
+<!-- JS -->
+<script>
+/* Collapse Animation */
+function toggleSection(id, arrowId) {
+    const sec = document.getElementById(id);
+    const arrow = document.getElementById(arrowId);
+
+    if (sec.style.maxHeight) {
+        sec.style.maxHeight = null;
+        arrow.style.transform = "rotate(0deg)";
+    } else {
+        sec.style.maxHeight = sec.scrollHeight + "px";
+        arrow.style.transform = "rotate(180deg)";
+    }
+}
+
+/* Sidebar Shrink Expand */
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const main = document.getElementById("mainContent");
+
+    sidebar.classList.toggle("shrink");
+    main.classList.toggle("shrink");
+}
+
+/* Mobile Sidebar */
+function toggleMobileSidebar() {
+    document.getElementById("sidebar").classList.toggle("show");
+}
+</script>

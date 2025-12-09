@@ -1,0 +1,324 @@
+<!-- <!DOCTYPE html>
+<html>
+<head><title><%= subject %> Quiz</title>
+<link rel="stylesheet" href="/css/quiz.css">
+</head>
+<body>
+<div class="quiz-main">
+    <h1><%= subject %> Quiz (<%= total %> Questions)</h1>
+    
+    <form id="quizForm">
+        <% questions.forEach((q, i) => { %>
+            <div class="question">
+                <h3>Q<%= i+1 %>: <%= q.question %></h3>
+                <% q.options.forEach((opt, j) => { %>
+                    <label><input type="radio" name="q<%= i %>" value="<%= opt %>"> 
+                        <%= String.fromCharCode(65+j) %>. <%= opt %>
+                    </label>
+                <% }) %>
+            </div>
+        <% }) %>
+        <button type="button" onclick="checkScore()">Submit Quiz</button>
+    </form>
+    
+    <div id="result"></div>
+</div>
+
+<script>
+const answers = <%- JSON.stringify(questions.map(q=>q.answer)) %>;
+function checkScore() {
+    let correct = 0;
+    answers.forEach((ans, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if(selected?.value === ans) correct++;
+    });
+    document.getElementById('result').innerHTML = `
+        <div class="score">
+            <h2> Score:  ${correct}/${answers.length} (${Math.round(correct/answers.length*100)}%)</h2>
+            <a href="/quiz">New Quiz</a>
+        </div>
+    `;
+}
+</script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= subject %> Quiz</title>
+
+    <style>
+        /* ---------- GLOBAL STYLING ---------- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #eef3ff, #d6e3ff);
+            background-size: 300% 300%;
+            animation: bgMove 10s infinite ease;
+        }
+        @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .quiz-container {
+            max-width: 850px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+        }
+
+        .title { font-size: 32px; text-align: center; font-weight: 600; }
+        .subtitle { text-align: center; margin-bottom: 25px; color: #555; }
+
+        /* ---------- TIMER ---------- */
+        .timer-box {
+            background: #f2f4ff;
+            padding: 12px 18px;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #2b3dbf;
+        }
+
+        /* ---------- PROGRESS BAR ---------- */
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e1e4ff;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: #4a6cf7;
+            border-radius: 20px;
+            transition: 0.4s ease;
+        }
+
+        /* ---------- QUESTION CARD ---------- */
+        .question-card {
+            background: #f6f7ff;
+            padding: 20px;
+            border-radius: 14px;
+            border-left: 6px solid #4a6cf7;
+            display: none;
+        }
+
+        .question-text { font-size: 18px; margin-bottom: 12px; }
+
+        .options { display: flex; flex-direction: column; gap: 10px; }
+
+        .option {
+            background: #fff;
+            border: 1px solid #d4d7eb;
+            padding: 12px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: 0.3s ease;
+        }
+        .option:hover { background: #eef1ff; }
+
+        .correct {
+            background: #d4ffd9 !important;
+            border-color: #1fb141 !important;
+        }
+        .wrong {
+            background: #ffd6d6 !important;
+            border-color: #d63434 !important;
+        }
+
+        /* ---------- NAV BUTTONS ---------- */
+        .nav-btns {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn {
+            padding: 12px 24px;
+            background: #4a6cf7;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover { background: #3655d6; }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        /* ---------- RESULT ---------- */
+        .result-box {
+            margin-top: 25px;
+            background: #ffffff;
+            padding: 25px;
+            text-align: center;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        .result-box span { color: #4a6cf7; font-weight: 600; }
+
+        .retry-btn {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 12px 20px;
+            background: #4a6cf7;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media(max-width: 600px) {
+            .quiz-container { padding: 20px; }
+            .title { font-size: 26px; }
+            .btn { padding: 10px 18px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="quiz-container">
+
+    <h1 class="title"><%= subject %> Quiz</h1>
+    <p class="subtitle"><%= total %> Questions</p>
+
+    <div class="timer-box">⏳ Time Left: <span id="timer">01:00</span></div>
+
+    <div class="progress-bar"><div id="progress" class="progress"></div></div>
+
+    <form id="quizForm">
+
+        <% questions.forEach((q, i) => { %>
+            <div class="question-card" id="q<%= i %>">
+                <h3 class="question-text">Q<%= i+1 %>. <%= q.question %></h3>
+
+                <div class="options">
+                    <% q.options.forEach((opt, j) => { %>
+                        <label class="option">
+                            <input type="radio" name="q<%= i %>" value="<%= opt %>">
+                            <span><%= String.fromCharCode(65+j) %>. <%= opt %></span>
+                        </label>
+                    <% }) %>
+                </div>
+            </div>
+        <% }) %>
+
+        <div class="nav-btns">
+            <button type="button" class="btn" onclick="prevQ()">Previous</button>
+            <button type="button" class="btn" onclick="nextQ()">Next</button>
+        </div>
+
+        <button type="button" class="submit-btn btn" onclick="submitQuiz()">Submit Quiz</button>
+    </form>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+let current = 0;
+const totalQ = <%= total %>;
+const answers = <%- JSON.stringify(questions.map(q => q.answer)) %>;
+
+document.getElementById("q0").style.display = "block";
+
+/* ---------- NAVIGATION ---------- */
+function showQ(i) {
+    document.querySelectorAll(".question-card").forEach(q => q.style.display = "none");
+    document.getElementById("q" + i).style.display = "block";
+
+    document.getElementById("progress").style.width = ((i+1) / totalQ * 100) + "%";
+}
+
+function nextQ() {
+    if (current < totalQ - 1) current++;
+    showQ(current);
+}
+
+function prevQ() {
+    if (current > 0) current--;
+    showQ(current);
+}
+
+/* ---------- TIMER ---------- */
+let time = 60;
+const timerEl = document.getElementById("timer");
+const timer = setInterval(() => {
+    time--;
+    let m = String(Math.floor(time / 60)).padStart(2,"0");
+    let s = String(time % 60).padStart(2,"0");
+    timerEl.innerText = `${m}:${s}`;
+    if(time <= 0) {
+        clearInterval(timer);
+        submitQuiz();
+    }
+}, 1000);
+
+/* ---------- SUBMIT QUIZ ---------- */
+function submitQuiz() {
+    clearInterval(timer);
+
+    let correct = 0;
+
+    answers.forEach((ans,i)=>{
+        document.querySelectorAll(`#q${i} .option`).forEach(opt => {
+            opt.style.pointerEvents = "none"; // disable
+        });
+
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+
+        if(selected){
+            if(selected.value === ans){
+                correct++;
+                selected.parentElement.classList.add("correct");
+            } else {
+                selected.parentElement.classList.add("wrong");
+            }
+        }
+
+        const correctOpt = [...document.querySelectorAll(`#q${i} .option input`)]
+                           .find(x => x.value === ans);
+        correctOpt.parentElement.classList.add("correct");
+    });
+
+    document.getElementById("result").innerHTML = `
+        <div class="result-box">
+            <h2>Your Score</h2>
+            <p><span>${correct}</span> / ${answers.length}  
+               <span>(${Math.round(correct/answers.length * 100)}%)</span></p>
+            <a href="/quiz" class="retry-btn">Take New Quiz</a>
+        </div>
+    `;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!-- <% layout("/layouts/boilerplate") %>
+
+<div class="profile-box">
+  <h2>Welcome <%= currUser.username || currUser.email %></h2>
+  <p>Email: <%= currUser.email %></p>
+  <a href="/logout">Logout</a>
+</div>
+
+<style>
+.profile-box{
+  margin:80px auto;
+  width:300px;
+  text-align:center;
+  padding:20px;
+  background:#fff;
+  box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+</style> -->
+
+
+
+
+
+
+
+
+
+
+
+<% layout("/layouts/boilerplate") %>    
+
+<div class="profile-container">
+
+  <!-- USER PROFILE CARD -->
+  <div class="profile-box">
+      
+      <div class="profile-img">
+          <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=<%= currUser.username %>" alt="">
+      </div>
+
+      <!-- ONLINE STATUS -->
+      <p class="status <%= currUser.online ? 'online' : 'offline' %>">
+          <%= currUser.online ? "🟢 Online" : "🔴 Offline" %>
+      </p>
+
+      <h2><%= currUser.username || currUser.email %></h2>
+      <p class="email"><%= currUser.email %></p>
+
+      <!-- USER INFORMATION -->
+      <div class="user-info-box">
+        <% if (currUser.bio) { %><p><strong>Bio:</strong> <%= currUser.bio %></p><% } %>
+        <% if (currUser.branch) { %><p><strong>Branch:</strong> <%= currUser.branch %></p><% } %>
+        <% if (currUser.year) { %><p><strong>Year:</strong> <%= currUser.year %></p><% } %>
+        <% if (currUser.college) { %><p><strong>College:</strong> <%= currUser.college %></p><% } %>
+        <% if (currUser.skills && currUser.skills.length > 0) { %>
+          <p><strong>Skills:</strong> <%= currUser.skills.join(", ") %></p>
+        <% } %>
+      </div>
+
+      <a class="logout-btn" href="/logout">Logout</a>
+      <a class="edit-btn" href="/edit-profile">Edit Profile</a>
+
+  </div>
+
+  
+
+</div>
+
+<style>
+
+body {
+  background: #f4f6f9;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* MAIN LAYOUT */
+.profile-container {
+  max-width: 900px;
+  margin: 120px auto;
+  padding: 20px;
+}
+
+/* PROFILE BOX */
+.profile-box {
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+}
+
+.profile-img img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+}
+
+.profile-box h2 {
+  margin-top: 10px;
+  font-size: 24px;
+}
+
+.profile-box .email {
+  color: #666;
+  margin-top: -5px;
+  margin-bottom: 15px;
+}
+
+.status {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.online { color: green; }
+.offline { color: red; }
+
+/* USER INFO BOX */
+.user-info-box {
+  text-align: left;
+  margin-top: 15px;
+  background: #fafafa;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+/* BUTTONS */
+.logout-btn, .edit-btn {
+  display: inline-block;
+  padding: 10px 25px;
+  background: #007bff;
+  color: white;
+  margin-top: 12px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.logout-btn { background: #ff4d4f; }
+.logout-btn:hover { background: #d9363e; }
+.edit-btn:hover { background: #0056c7; }
+
+/* OTHER USERS SECTION */
+.other-users-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.other-users-box h3 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  text-align: center;
+}
+
+/* USER GRID */
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+/* USER CARD */
+.user-card {
+  background: #fafafa;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  transition: 0.3s;
+  border: 1px solid #eee;
+}
+.user-card:hover {
+  transform: translateY(-5px);
+}
+
+.user-card img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+/* FOLLOW + MESSAGE BUTTONS */
+.follow-btn, .msg-btn {
+  margin-top: 8px;
+  display: block;
+  padding: 7px 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.follow-btn {
+  background: #28a745;
+}
+.follow-btn:hover {
+  background: #218838;
+}
+
+.msg-btn {
+  background: #5858ee;
+}
+.msg-btn:hover {
+  background: #3d3db6;
+}
+
+.small-status {
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+.no-users {
+  text-align: center;
+  color: #777;
+}
+
+@media (max-width: 600px) {
+  .profile-container {
+    padding: 10px;
+  }
+  .profile-box {
+    padding: 15px;
+  }
+}
+</style>

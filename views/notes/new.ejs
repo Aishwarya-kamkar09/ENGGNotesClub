@@ -1,0 +1,155 @@
+
+<% layout("/layouts/boilerplate") %>
+
+<style>
+/* ================= PAGE ================= */
+body {
+    background: #eef2f7;
+    font-family: "Inter", sans-serif;
+}
+
+/* ================= CARD WRAPPER ================= */
+.form-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 25px;
+    border: 1px solid #d9e1f2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    margin: 40px auto;
+    max-width: 600px;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* ================= HEADING ================= */
+.form-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1d2b53;
+    margin-bottom: 25px;
+}
+
+/* ================= LABEL ================= */
+.form-label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1e293b;
+}
+
+/* ================= INPUT FIELDS ================= */
+.form-control-custom {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid #cfd7e4;
+    background: #f8faff;
+    font-size: 15px;
+    transition: 0.25s ease;
+}
+
+.form-control-custom:focus {
+    outline: none;
+    border-color: #3A4EFF;
+    box-shadow: 0 0 0 3px rgba(58, 78, 255, 0.2);
+}
+
+/* ================= FILE INPUT ================= */
+.file-input {
+    margin-bottom: 10px;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #d5d9e4;
+    background: white;
+    width: 100%;
+}
+
+/* ================= SUBMIT BUTTON ================= */
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #3A4EFF, #6274FF);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: 0.3s ease;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(58, 78, 255, 0.35);
+}
+
+/* ================= RESPONSIVE FIXES ================= */
+@media(max-width: 600px) {
+    .form-card {
+        padding: 25px;
+        margin: 20px;
+    }
+
+    .form-title {
+        font-size: 26px;
+    }
+
+    .btn-submit {
+        font-size: 16px;
+    }
+}
+</style>
+
+<!-- =================== HTML UI =================== -->
+
+<div class="form-card">
+    <a href="/login">
+    <h2 class="form-title">Create New Notes</h2>
+    </a>
+
+    <form method="POST" action="/notes" enctype="multipart/form-data">
+
+        <!-- SUBJECT -->
+        <div class="mb-3">
+            <label class="form-label">Subject</label>
+            <input type="text" name="note[subject]" class="form-control-custom" required>
+        </div>
+         <div class="mb-3">
+            <label class="form-label">Subject-Code</label>
+            <input type="text" name="note[subject]" class="form-control-custom" required>
+        </div>
+
+        <!-- BRANCH -->
+        <div class="mb-3">
+            <label class="form-label">Branch</label>
+            <input type="text" name="note[branch]" class="form-control-custom" required>
+        </div>
+       
+
+        <!-- SEMESTER -->
+        <div class="mb-3">
+            <label class="form-label">Semester</label>
+            <input type="number" name="note[semester]" class="form-control-custom" required>
+        </div>
+
+        <!-- MODULE UPLOADS -->
+        <div class="mb-3">
+            <label class="form-label">📚 Upload 5 Modules</label>
+            
+            <input type="file" name="module_1" class="file-input" required>
+            <input type="file" name="module_2" class="file-input" required>
+            <input type="file" name="module_3" class="file-input" required>
+            <input type="file" name="module_4" class="file-input" required>
+            <input type="file" name="module_5" class="file-input" required>
+        </div>
+
+        <!-- SUBMIT BUTTON -->
+        <button class="btn-submit mt-3">Add Notes</button>
+
+    </form>
+</div>
