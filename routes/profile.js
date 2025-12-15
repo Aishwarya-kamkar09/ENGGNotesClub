@@ -39,8 +39,8 @@ router.post(
     req.flash("success", "Profile updated successfully!");
 
     // 🔥 Redirect to HOME PAGE
-    // res.redirect("/home");
-     res.redirect("/group-caht");
+    res.redirect("/home");
+    //  res.redirect("/group-caht");
   }
 );
 
