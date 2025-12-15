@@ -663,6 +663,56 @@ router
 // =========================
 router.get("/:id/edit", isLoggedin, isOwner, WrapAsync(noteController.edit));
 
+
+
+router.get("/:id", async (req, res) => {
+    const note = await Note.findById(req.params.id);
+
+    const user = await User.findById(req.user._id);
+
+    user.recentNotes.unshift(note._id);
+
+    if (user.recentNotes.length > 10) {
+        user.recentNotes.pop();
+    }
+
+    await user.save();
+
+    res.render("notes/show", { note });
+});
+
+
+// ===============================
+// ⭐ SAVE NOTE ROUTE (FINAL)
+// ===============================
+
+function isLoggedIn(req, res, next) {
+    if (!req.isAuthenticated()) {
+        req.flash("error", "You must be logged in first!");
+        return res.redirect("/login");
+    }
+    next();
+}
+
+
+router.post("/:id/save", isLoggedIn, async (req, res) => {
+    try {
+        const noteId = req.params.id;
+        const user = await User.findById(req.user._id);
+
+        if (!user.savedNotes.includes(noteId)) {
+            user.savedNotes.push(noteId);
+            await user.save();
+        }
+
+        res.redirect("/notes/" + noteId);
+
+    } catch (err) {
+        console.log(err);
+        res.send("Error saving note");
+    }
+});
+
 module.exports = router;
 
 

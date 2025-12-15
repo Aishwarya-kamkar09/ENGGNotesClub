@@ -1,0 +1,88 @@
+
+<style>
+  /* =========================
+   PAGE TITLE
+========================= */
+h2{
+  text-align:center;
+  font-size:26px;
+  font-weight:600;
+  margin:30px 0 20px;
+  color:#0F172A;
+}
+
+/* =========================
+   RESULT BOX
+========================= */
+.result-box{
+  max-width:900px;
+  margin:0 auto 40px;
+  background:#ffffff;
+  padding:28px 30px;
+  border-radius:16px;
+  border:1px solid #E2E8F0;
+  box-shadow:0 12px 30px rgba(0,0,0,0.06);
+}
+
+/* =========================
+   RESULT TEXT
+========================= */
+.result-box pre{
+  margin:0;
+  font-family:'Inter', 'Segoe UI', sans-serif;
+  font-size:15px;
+  line-height:1.7;
+  color:#1E293B;
+  white-space:pre-wrap;
+  word-wrap:break-word;
+}
+
+/* =========================
+   SCROLL FOR LARGE OUTPUT
+========================= */
+.result-box{
+  max-height:70vh;
+  overflow-y:auto;
+}
+
+/* =========================
+   CUSTOM SCROLLBAR
+========================= */
+.result-box::-webkit-scrollbar{
+  width:8px;
+}
+
+.result-box::-webkit-scrollbar-thumb{
+  background:#CBD5E1;
+  border-radius:10px;
+}
+
+.result-box::-webkit-scrollbar-thumb:hover{
+  background:#94A3B8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width:768px){
+  .result-box{
+    padding:22px 18px;
+  }
+
+  h2{
+    font-size:22px;
+  }
+
+  .result-box pre{
+    font-size:14px;
+  }
+}
+</style>
+<% layout("/layouts/boilerplate") %>
+
+<h2>AI Result</h2>
+
+<div class="result-box">
+    <pre><%= result %></pre>
+</div>
+

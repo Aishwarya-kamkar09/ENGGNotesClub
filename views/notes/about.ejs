@@ -1,0 +1,177 @@
+
+ <% layout("/layouts/boilerplate") %>
+
+<style>
+/* =============================
+   ABOUT PAGE BASE
+============================= */
+.about-container{
+  max-width:1100px;
+  margin:50px auto;
+  padding:0 20px;
+  font-family: "Inter", sans-serif;
+  color:#1E293B;
+}
+
+/* =============================
+   HERO SECTION
+============================= */
+.about-hero{
+  text-align:center;
+  margin-bottom:60px;
+}
+
+.about-hero h1{
+  font-size:38px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+.about-hero p{
+  font-size:16px;
+  color:#475569;
+  max-width:700px;
+  margin:auto;
+  line-height:1.7;
+}
+
+/* =============================
+   INFO CARDS (MISSION / VISION)
+============================= */
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+  margin-top:60px;
+}
+
+.info-card{
+  background:#ffffff;
+  padding:30px;
+  border-radius:20px;
+  border:1px solid #E2E8F0;
+  box-shadow:0 12px 35px rgba(0,0,0,0.06);
+}
+
+.info-card h3{
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.info-card p{
+  font-size:15px;
+  line-height:1.7;
+  color:#475569;
+}
+
+/* =============================
+   TEAM SECTION
+============================= */
+.team-section{
+  margin-top:80px;
+  text-align:center;
+}
+
+.team-section h2{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.team-section p{
+  color:#64748B;
+  margin-bottom:40px;
+}
+
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+
+.team-card{
+  background:white;
+  border-radius:20px;
+  padding:30px 20px;
+  border:1px solid #E2E8F0;
+  box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.team-card h4{
+  margin-top:15px;
+  font-size:18px;
+}
+
+.team-card span{
+  font-size:14px;
+  color:#64748B;
+}
+
+/* =============================
+   RESPONSIVE
+============================= */
+@media(max-width:600px){
+  .about-hero h1{
+    font-size:28px;
+  }
+}
+</style>
+
+<div class="about-container">
+
+  <!-- HERO -->
+  <div class="about-hero">
+    <h1>About ENGGNOTESCLUB</h1>
+    <p>
+      Engineers Best Friend is a student-focused academic platform designed to
+      simplify learning by providing organized notes, AI-powered tools, and
+      collaborative resources for engineering students and educators.
+    </p>
+  </div>
+
+  <!-- ABOUT CONTENT -->
+  <div class="info-grid">
+
+    <div class="info-card">
+      <h3>📘 About the Platform</h3>
+      <p>
+        This platform helps students access subject-wise notes, previous year
+        question papers, and AI tools such as MCQ generation, summaries, and
+        concept explanations. It aims to reduce study complexity and improve
+        productivity.
+      </p>
+    </div>
+
+    <div class="info-card">
+      <h3>🎯 Our Mission</h3>
+      <p>
+        Our mission is to make engineering education more accessible, efficient,
+        and student-friendly by combining technology, structured resources, and
+        intelligent automation.
+      </p>
+    </div>
+
+    <div class="info-card">
+      <h3>🚀 Our Vision</h3>
+      <p>
+        We envision a future where students and teachers collaborate seamlessly
+        on a single digital platform that enhances understanding, creativity,
+        and academic success.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- TEAM -->
+  <div class="team-section">
+    <h2>Meet the Developer</h2>
+    <p>Built with passion for students and education</p>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <h4>Aishwarya Kamkar</h4>
+        <span>Full Stack Developer</span>
+      </div>
+    </div>
+  </div>
+
+</div>

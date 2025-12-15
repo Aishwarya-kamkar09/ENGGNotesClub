@@ -108,9 +108,9 @@ body {
 <!-- =================== HTML UI =================== -->
 
 <div class="form-card">
-    <a href="/login">
+   
     <h2 class="form-title">Create New Notes</h2>
-    </a>
+   
 
     <form method="POST" action="/notes" enctype="multipart/form-data">
 
@@ -121,7 +121,7 @@ body {
         </div>
          <div class="mb-3">
             <label class="form-label">Subject-Code</label>
-            <input type="text" name="note[subject]" class="form-control-custom" required>
+            <input type="text" name="note[subjectCode]" class="form-control-custom" required>
         </div>
 
         <!-- BRANCH -->
@@ -146,6 +146,11 @@ body {
             <input type="file" name="module_3" class="file-input" required>
             <input type="file" name="module_4" class="file-input" required>
             <input type="file" name="module_5" class="file-input" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">📑 Upload Syllabus</label>
+            <input type="file" name="note[syllabus]" class="file-input">
         </div>
 
         <!-- SUBMIT BUTTON -->

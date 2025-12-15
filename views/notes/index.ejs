@@ -129,7 +129,58 @@
         text-decoration: none;
         color: inherit;
     }
+
+
+
+
+.sidebar {
+    width: 230px;
+    height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+}
+
+.sidebar h3 {
+    font-size: 22px;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    font-size: 17px;
+    color: #333;
+    border-radius: 6px;
+}
+
+.sidebar a:hover {
+    background: #e9eef5;
+}
+
+.content {
+    margin-left: 250px;
+    padding: 25px;
+}
+
+
 </style>
+
+
+<div class="sidebar">
+    <h3>Menu</h3>
+
+    <a href="/profile">👤 Profile</a>
+    <a href="/notes">📝 All Notes</a>
+    <a href="/logout">🚪 Logout</a>
+</div>
+
+<div class="content">
 
 
 <!-- HEADER -->
@@ -137,12 +188,7 @@
     <h2>Available Notes</h2>
 </div>
 
-<!-- QUIZ BUTTON -->
-<div style="text-align:center; margin-top:15px;">
-    <a href="/quiz">
-        <button class="quiz-button">📚 Play Quiz</button>
-    </a>
-</div>
+
 
 <!-- NOTES LIST -->
 <div class="notes-list">

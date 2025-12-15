@@ -14,6 +14,29 @@ const userSchema = new mongoose.Schema({
   emailVerified: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   refreshToken: { type: String }, // current valid refresh token (hashed)
+  resetToken: String,
+  resetTokenExpiry: Date,
+
+  savedNotes: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Note" }
+  ],
+  recentNotes: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Note" }
+  ],
+
+  role: {
+    type: String,
+    enum: ["student", "teacher"],
+    default: "student"
+},
+profileImage: {
+    type: String,
+    default: ""
+},
+online: {
+    type: Boolean,
+    default: false
+}
 });
 
 userSchema.plugin(passportLocalMongoose);

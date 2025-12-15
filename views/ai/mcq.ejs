@@ -1,0 +1,79 @@
+<style>
+    /* =========================
+   PAGE HEADING
+========================= */
+h2{
+  text-align:center;
+  font-size:26px;
+  font-weight:600;
+  margin:30px 0 20px;
+  color:#0F172A;
+}
+
+/* =========================
+   FORM CONTAINER
+========================= */
+form{
+  max-width:500px;
+  margin:0 auto;
+  background:#ffffff;
+  padding:30px;
+  border-radius:14px;
+  border:1px solid #E2E8F0;
+  box-shadow:0 12px 30px rgba(0,0,0,0.06);
+}
+
+/* =========================
+   INPUT FIELD
+========================= */
+form .form-control{
+  padding:14px 16px;
+  font-size:15px;
+  border-radius:10px;
+  border:1px solid #CBD5E1;
+}
+
+form .form-control:focus{
+  border-color:#1E3A8A;
+  box-shadow:0 0 0 3px rgba(30,58,138,0.15);
+}
+
+/* =========================
+   BUTTON
+========================= */
+form .btn{
+  width:100%;
+  padding:12px;
+  font-size:15px;
+  font-weight:500;
+  border-radius:999px;
+  background:#1E3A8A;
+  border:none;
+  margin-top:18px;
+}
+
+form .btn:hover{
+  background:#162C46;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width:600px){
+  form{
+    padding:24px 20px;
+  }
+
+  h2{
+    font-size:22px;
+  }
+}
+</style>
+<% layout("/layouts/boilerplate") %>
+
+<h2>AI MCQ Generator</h2>
+
+<form action="/ai/mcq" method="POST">
+    <input type="text" name="topic" class="form-control" placeholder="Enter topic...">
+    <button class="btn btn-success mt-3">Generate</button>
+</form>

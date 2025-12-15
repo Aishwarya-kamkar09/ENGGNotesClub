@@ -1,229 +1,236 @@
-<!-- <% layout("/layouts/boilerplate") %>
-
-<div class="profile-box">
-  <h2>Welcome <%= currUser.username || currUser.email %></h2>
-  <p>Email: <%= currUser.email %></p>
-  <a href="/logout">Logout</a>
-</div>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
 <style>
-.profile-box{
-  margin:80px auto;
-  width:300px;
-  text-align:center;
-  padding:20px;
-  background:#fff;
-  box-shadow:0 0 10px rgba(0,0,0,.2);
-}
-</style> -->
+    body {
+        background: #f0f2f5;
+        font-family: 'Segoe UI', sans-serif;
+    }
 
+    .profile-container {
+        max-width: 500px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
 
+    .profile-img-wrapper {
+        position: relative;
+        width: 130px;
+        height: 130px;
+        margin: 0 auto 15px auto;
+    }
 
+    .profile-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #25d366;  /* WhatsApp green ring */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
+    .profile-status {
+        text-align: center;
+        font-size: 17px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
 
-
-
-
-
-
-
-<% layout("/layouts/boilerplate") %>    
+    .online { color: #25d366; }   /* WhatsApp green */
+    .offline { color: #ff3344; }  /* Red */
+</style>
 
 <div class="profile-container">
 
-  <!-- USER PROFILE CARD -->
-  <div class="profile-box">
-      
-      <div class="profile-img">
-          <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=<%= currUser.username %>" alt="">
-      </div>
+    <h2 class="text-center mb-3">Complete Your Profile</h2>
 
-      <!-- ONLINE STATUS -->
-      <p class="status <%= currUser.online ? 'online' : 'offline' %>">
-          <%= currUser.online ? "🟢 Online" : "🔴 Offline" %>
-      </p>
+ 
+    <div class="profile-img-wrapper">
+        <img id="profilePreview"
+             src="<%= currUser.profileImage || `https://api.dicebear.com/7.x/thumbs/svg?seed=${currUser.username} `%>"
+             alt="Profile Picture">
+    </div>
 
-      <h2><%= currUser.username || currUser.email %></h2>
-      <p class="email"><%= currUser.email %></p>
+   
+    <p class="profile-status <%= currUser.online ? 'online' : 'offline' %>">
+        <%= currUser.online ? "🟢 Online" : "🔴 Offline" %>
+    </p>
 
-      <!-- USER INFORMATION -->
-      <div class="user-info-box">
-        <% if (currUser.bio) { %><p><strong>Bio:</strong> <%= currUser.bio %></p><% } %>
-        <% if (currUser.branch) { %><p><strong>Branch:</strong> <%= currUser.branch %></p><% } %>
-        <% if (currUser.year) { %><p><strong>Year:</strong> <%= currUser.year %></p><% } %>
-        <% if (currUser.college) { %><p><strong>College:</strong> <%= currUser.college %></p><% } %>
-        <% if (currUser.skills && currUser.skills.length > 0) { %>
-          <p><strong>Skills:</strong> <%= currUser.skills.join(", ") %></p>
-        <% } %>
-      </div>
+    <form action="/profile" method="POST" enctype="multipart/form-data">
 
-      <a class="logout-btn" href="/logout">Logout</a>
-      <a class="edit-btn" href="/edit-profile">Edit Profile</a>
+        <label class="form-label">Upload Profile Picture</label>
+        <input type="file" name="profileImage" class="form-control" accept="image/*" onchange="previewProfile(this)">
 
-  </div>
+        <label class="form-label mt-3">Your Name</label>
+        <input type="text" name="name" class="form-control" value="<%= currUser.name || '' %>" required>
 
-  
+        <label class="form-label mt-3">Select Role</label>
+        <select name="role" class="form-control" required>
+            <option value="student" <%= currUser.role === 'student' ? 'selected' : '' %>>Student</option>
+            <option value="teacher" <%= currUser.role === 'teacher' ? 'selected' : '' %>>Teacher</option>
+        </select>
 
+        <button class="btn btn-success w-100 mt-4">Save Profile</button>
+    </form>
 </div>
 
+<script>
+    function previewProfile(input) {
+        const file = input.files[0];
+        if (file) {
+            document.getElementById('profilePreview').src = URL.createObjectURL(file);
+        }
+    }
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
-
-body {
-  background: #f4f6f9;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* MAIN LAYOUT */
+/* Main container */
 .profile-container {
-  max-width: 900px;
-  margin: 120px auto;
-  padding: 20px;
+    max-width: 650px;
+    margin: auto;
+    margin-top: 40px;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    animation: fadeIn 0.4s ease-in-out;
 }
 
-/* PROFILE BOX */
-.profile-box {
-  background: #fff;
-  padding: 25px;
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  margin-bottom: 40px;
+/* Smooth animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.profile-img img {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
+/* Profile circle */
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #4CAF50;
+    overflow: hidden;
+    margin: auto;
+    position: relative;
+    cursor: pointer;
+    transition: 0.4s ease;
 }
 
-.profile-box h2 {
-  margin-top: 10px;
-  font-size: 24px;
+.profile-photo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
 
-.profile-box .email {
-  color: #666;
-  margin-top: -5px;
-  margin-bottom: 15px;
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.status {
-  font-size: 14px;
-  margin-bottom: 8px;
-}
-.online { color: green; }
-.offline { color: red; }
-
-/* USER INFO BOX */
-.user-info-box {
-  text-align: left;
-  margin-top: 15px;
-  background: #fafafa;
-  padding: 15px;
-  border-radius: 10px;
-  font-size: 14px;
+/* Camera icon overlay */
+.profile-photo::after {
+    content: "\f030"; /* FontAwesome camera icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: white;
+    padding: 6px 8px;
+    border-radius: 50%;
+    font-size: 18px;
 }
 
-/* BUTTONS */
-.logout-btn, .edit-btn {
-  display: inline-block;
-  padding: 10px 25px;
-  background: #007bff;
-  color: white;
-  margin-top: 12px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 500;
+/* Input fields */
+.field {
+    margin-top: 18px;
 }
 
-.logout-btn { background: #ff4d4f; }
-.logout-btn:hover { background: #d9363e; }
-.edit-btn:hover { background: #0056c7; }
-
-/* OTHER USERS SECTION */
-.other-users-box {
-  background: #fff;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+label {
+    font-weight: 600;
 }
 
-.other-users-box h3 {
-  margin-bottom: 20px;
-  font-size: 22px;
-  text-align: center;
-}
-
-/* USER GRID */
-.user-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
-}
-
-/* USER CARD */
-.user-card {
-  background: #fafafa;
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  transition: 0.3s;
-  border: 1px solid #eee;
-}
-.user-card:hover {
-  transform: translateY(-5px);
-}
-
-.user-card img {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-}
-
-/* FOLLOW + MESSAGE BUTTONS */
-.follow-btn, .msg-btn {
-  margin-top: 8px;
-  display: block;
-  padding: 7px 12px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.follow-btn {
-  background: #28a745;
-}
-.follow-btn:hover {
-  background: #218838;
-}
-
-.msg-btn {
-  background: #5858ee;
-}
-.msg-btn:hover {
-  background: #3d3db6;
-}
-
-.small-status {
-  margin: 5px 0;
-  font-size: 12px;
-}
-
-.no-users {
-  text-align: center;
-  color: #777;
-}
-
-@media (max-width: 600px) {
-  .profile-container {
+/* Save button */
+button {
+    width: 100%;
+    margin-top: 25px;
+    font-size: 17px;
     padding: 10px;
-  }
-  .profile-box {
-    padding: 15px;
-  }
+}
+
+/* Mobile responsive */
+@media(max-width: 500px) {
+    .profile-container {
+        padding: 22px;
+        border-radius: 12px;
+    }
+    .profile-photo {
+        width: 130px;
+        height: 130px;
+    }
 }
 </style>
+
+<!-- FontAwesome for Camera Icon -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<div class="profile-container">
+
+    <h2 class="text-center mb-3">👤 Your Profile</h2>
+
+    <!-- Profile Image Click to Upload -->
+    <div class="profile-photo mb-4" onclick="document.getElementById('profileInput').click();">
+        <img id="profilePreview" 
+             src="<%= currUser.profileImage ? currUser.profileImage : 'https://api.dicebear.com/7.x/thumbs/svg?seed=' + currUser.username %>" 
+             alt="Profile Photo">
+    </div>
+
+    <form action="/profile" method="POST" enctype="multipart/form-data">
+
+        <input type="file" id="profileInput" name="profileImage" accept="image/*" style="display:none;">
+
+        <div class="field">
+            <label>Full Name</label>
+            <input type="text" class="form-control" name="name" value="<%= currUser.name %>" required>
+        </div>
+
+        <div class="field">
+            <label>Email</label>
+            <input type="text" class="form-control" value="<%= currUser.email %>" disabled>
+        </div>
+
+        <div class="field">
+            <label>Select Role</label>
+            <select class="form-control" name="role">
+                <option value="student" <%= currUser.role === "student" ? "selected" : "" %>>Student</option>
+                <option value="teacher" <%= currUser.role === "teacher" ? "selected" : "" %>>Teacher</option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+
+<!-- Image Preview Script -->
+<script>
+document.getElementById('profileInput').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        document.getElementById('profilePreview').src = URL.createObjectURL(file);
+    }
+});
+</script>

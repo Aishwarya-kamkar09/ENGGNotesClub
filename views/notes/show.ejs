@@ -1,4 +1,4 @@
-
+<!-- 
 
 
 <% layout("/layouts/boilerplate") %>
@@ -183,7 +183,7 @@ body {
     border-radius: 12px;
     transition: 0.3s;
 }
-</style>
+</style> -->
 
 
 <!-- MOBILE MENU BUTTON -->
@@ -191,38 +191,38 @@ body {
 
 
 <!-- SIDEBAR -->
- <div class="sidebar" id="sidebar">
+ <!-- <div class="sidebar" id="sidebar">
 
-    <div class="sidebar-toggle" onclick="toggleSidebar()">❮</div>
+    <div class="sidebar-toggle" onclick="toggleSidebar()">❮</div> -->
 
     <!-- <h2>NotesHub</h2> -->
 
-    <div class="sidebar-nav mt-4">
+    <!-- <div class="sidebar-nav mt-4">
         <a href="/home" >🏠 <span class="link-text">Home</span></a>
         <a href="/notes">📘 <span class="link-text">All Notes</span></a>
         <a href="/quiz" >🧠 <span class="link-text">Play Quiz</span></a>
         <a href="/profile" >👤 <span class="link-text">Profile</span></a>
     </div>
-</div>
+</div> -->
 
 <!-- MAIN CONTENT -->
-<div class="main-content" id="mainContent">
+<!-- <div class="main-content" id="mainContent"> -->
 
     <!-- FULL-WIDTH GLASS HEADER -->
-    <div class="glass-header">
+    <!-- <div class="glass-header">
         <h1><%= note.subject %></h1>
         <p class="subtitle">Branch: <%= note.branch %> | Semester: <%= note.semester %></p>
         <p class="subtitle">Uploaded by @<%= note.owner.username %></p>
-    </div>
+    </div> -->
 
     <!-- NOTES SECTION -->
-    <div class="info-card">
+    <!-- <div class="info-card">
         <div class="section-header" onclick="toggleSection('notesSec','arrow1')">
             <h3>📚 Notes PDF</h3>
             <span id="arrow1" class="arrow">▼</span>
-        </div>
+        </div> -->
 
-        <div id="notesSec" class="section-content">
+        <!-- <div id="notesSec" class="section-content">
               <% if(note.resources && note.resources.notes) { %>
               <% Object.keys(note.resources.notes).forEach(module => { %>
             <div class="module-item">
@@ -232,7 +232,7 @@ body {
             <% }) %>
             <% } %>
         </div>
-    </div>
+    </div> -->
 
 
   
@@ -240,7 +240,7 @@ body {
 
 
     <!-- QUESTION PAPERS -->
-    <div class="info-card">
+    <!-- <div class="info-card">
         <div class="section-header" onclick="toggleSection('paperSec','arrow2')">
             <h3>📄 Previous Question Papers</h3>
             <span id="arrow2" class="arrow">▼</span>
@@ -256,10 +256,10 @@ body {
         </div>
     </div>
 
-</div>
+</div> -->
 
 <!-- JS -->
-<script>
+<!-- <script>
 /* Collapse Animation */
 function toggleSection(id, arrowId) {
     const sec = document.getElementById(id);
@@ -287,4 +287,361 @@ function toggleSidebar() {
 function toggleMobileSidebar() {
     document.getElementById("sidebar").classList.toggle("show");
 }
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% layout("/layouts/boilerplate") %>
+
+<style>
+/* ===== GENERAL ===== */
+body {
+    background: #eef2f7;
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 260px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(15px);
+    border-right: 1px solid #e6e9f5;
+    padding: 30px 20px;
+    transition: 0.3s;
+    z-index: 20;
+}
+
+.sidebar.shrink { width: 80px; }
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    font-size: 15px;
+    color: #1E293B;
+    text-decoration: none;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.sidebar-nav a.active {
+    background: #3A4EFF;
+    color: white;
+}
+
+.sidebar-toggle {
+    position: absolute;
+    right: -18px;
+    top: 20px;
+    background: #3A4EFF;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+    padding: 40px 40px 40px 320px;
+    transition: 0.3s;
+}
+
+.main-content.shrink { padding-left: 130px; }
+
+@media(max-width: 768px){
+    .main-content { padding: 100px 20px; }
+    .sidebar { transform: translateX(-260px); }
+    .sidebar.show { transform: translateX(0); }
+}
+
+/* ===== HEADER CARD ===== */
+.glass-header {
+    width: 100%;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 25px;
+    border: 1px solid #dbe1f5;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+}
+.glass-header h1 { font-size: 32px; color:#1d2b53; }
+
+/* ===== INFO CARDS ===== */
+.info-card {
+    background: white;
+    padding: 25px;
+    border-radius: 22px;
+    border: 1px solid #e4e8f3;
+    margin-top: 30px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s;
+}
+
+.module-item {
+    background: #f8faff;
+    padding: 18px;
+    border-radius: 16px;
+    border: 1px solid #e1e6fa;
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-download {
+    background: #3A4EFF;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 12px;
+    border: none;
+}
+
+.three-dots{
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.chat-box {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 300px;
+  height: 400px;
+  background: white;
+  border: 1px solid #ccc;
+  display: none;
+  flex-direction: column;
+}
+
+.chat-header {
+  background: #4f46e5;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.chat-input {
+  display: flex;
+}
+.chat-input input {
+  flex: 1;
+}
+
+/* ===== HEADER FLEX ===== */
+.header-flex{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+}
+
+/* ===== EDIT BUTTON ===== */
+.edit-btn{
+    background:#fbbf24;
+    color:#1f2937;
+    padding:10px 18px;
+    border-radius:14px;
+    font-weight:600;
+    text-decoration:none;
+    transition:0.25s;
+    box-shadow:0 6px 18px rgba(0,0,0,0.12);
+}
+
+.edit-btn:hover{
+    background:#f59e0b;
+    transform:translateY(-2px);
+}
+</style>
+
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-toggle" onclick="toggleSidebar()">❮</div>
+
+    <div class="sidebar-nav mt-4">
+        <a href="/home">🏠 <span>Home</span></a>
+        <a href="/notes" class="active">📘 <span>All Notes</span></a>
+        <a href="/quiz">🧠 <span>Play Quiz</span></a>
+        <a href="/profile">👤 <span>Profile</span></a>
+        
+    </div>
+</div>
+
+
+<!-- MAIN CONTENT -->
+
+
+
+<div class="main-content" id="mainContent">
+
+
+  <span class="three-dots" onclick="toggleRumbleChat()" >...</span>
+
+    <!-- FULL WIDTH SUBJECT HEADER -->
+    <div class="glass-header header-flex">
+        <div>
+        <h1><%= note.subject %></h1>
+        <p>Branch: <%= note.branch %> | Semester: <%= note.semester %></p>
+        <p>Uploaded by @<%= note.owner.username %></p>
+        </div>
+
+        <% if (currUser && currUser._id.equals(note.owner._id)) {  %>
+  
+        <a href="/notes/<%= note._id %>/edit" class="edit-btn">  Edit</a>
+        <form method="POST" action="/notes/<%= note._id %>?_method=DELETE">
+            <button>Delete</button>
+        </form>
+             <% } %>
+    </div>
+
+
+    <!-- NOTES PDF -->
+    <div class="info-card">
+        <div class="section-header" onclick="toggleSection('notesSec','arrow1')">
+            📚 Notes PDF
+            <span id="arrow1">▼</span>
+        </div>
+
+        <div id="notesSec" class="section-content">
+            <% if(note.resources && note.resources.notes){ %>
+                <% Object.keys(note.resources.notes).forEach(module => { %>
+                <div class="module-item">
+                    📘 <%= module.replace("_", " ").toUpperCase() %>
+                    <a class="btn-download" 
+                       href="/notes/download/<%= note._id %>/<%= module %>" target="_blank">
+                       Download
+                    </a>
+                </div>
+                <% }) %>
+            <% } %>
+        </div>
+    </div>
+
+
+    
+
+
+    <!-- QUESTION PAPERS -->
+    <div class="info-card">
+        <div class="section-header" onclick="toggleSection('paperSec','arrow2')">
+            📄 Previous Question Papers
+            <span id="arrow2">▼</span>
+        </div>
+
+        <div id="paperSec" class="section-content">
+            <% papers.forEach((paper,i)=>{ %>
+            <div class="module-item">
+                Paper <%= i+1 %>
+                <a class="btn-download" href="<%= paper %>" target="_blank">Download</a>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+
+   
+   
+
+</div>
+
+
+
+<!-- CHAT CONTAINER (hidden by default) -->
+<div id="rumbleChat" 
+     style="display:none; position:fixed; right:20px; bottom:20px; z-index:999;
+            background:#fff; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+
+  <!-- CLOSE BUTTON -->
+  <div style="text-align:right; padding:5px;">
+    <button onclick="toggleRumbleChat()"
+            style="border:none; background:none; font-size:18px; cursor:pointer;">
+      ✖
+    </button>
+  </div>
+
+  <!-- CHAT IFRAME -->
+  <div style="height:500px; width:350px;">
+    <div id="rt-98f6097536a88a54cdc3a1a7e4600202"></div>
+    <script src="https://rumbletalk.com/client/?BXhC5qU9"></script>
+  </div>
+
+</div>
+
+
+<script>
+function toggleSection(id, arrowId){
+    let sec = document.getElementById(id);
+    let arrow = document.getElementById(arrowId);
+
+    if(sec.style.maxHeight){
+        sec.style.maxHeight = null;
+        arrow.style.transform = "rotate(0deg)";
+    } else {
+        sec.style.maxHeight = sec.scrollHeight + "px";
+        arrow.style.transform = "rotate(180deg)";
+    }
+}
+
+function toggleSidebar(){
+    document.getElementById("sidebar").classList.toggle("shrink");
+    document.getElementById("mainContent").classList.toggle("shrink");
+}
+
+
+
+
+
+function toggleRumbleChat() {
+  const chat = document.getElementById("rumbleChat");
+  chat.style.display = chat.style.display === "none" ? "block" : "none";
+}
+
+
 </script>

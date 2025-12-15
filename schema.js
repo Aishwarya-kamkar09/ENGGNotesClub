@@ -3,8 +3,9 @@ const joi = require("joi");
 module.exports.noteSchema = joi.object({
     note: joi.object({
         subject: joi.string().required(),
+        subjectCode: joi.string().optional(),
         branch: joi.string().required(),
-        semester: joi.number().required().min(1).max(5),
+        semester: joi.number().required().min(1).max(8),
     }).required(),
 });
 

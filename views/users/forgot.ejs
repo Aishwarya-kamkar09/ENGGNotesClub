@@ -1,0 +1,17 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="login-wrapper">
+  <div class="auth-card">
+    <h2 class="title">Forgot Password</h2>
+    <p class="subtitle">Enter your registered email</p>
+
+    <form action="/forgot-password" method="POST">
+      <div class="input-group">
+        <input type="email" name="email" required>
+        <label>Email</label>
+      </div>
+
+      <button class="email-btn">Send Reset Link</button>
+    </form>
+  </div>
+</div>

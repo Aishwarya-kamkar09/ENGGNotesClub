@@ -1,0 +1,19 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2>Search Results for "<%= q %>"</h2>
+
+<% if (notes.length === 0) { %>
+    <p>No notes found.</p>
+<% } %>
+
+<div>
+    <% notes.forEach(n => { %>
+        <div style="padding:15px;margin:10px;border:1px solid #ccc;border-radius:10px;">
+            <h3><%= n.title %></h3>
+            <p><strong>Subject:</strong> <%= n.subject %></p>
+            <p><strong>Branch:</strong> <%= n.branch %></p>
+            <p><strong>Semester:</strong> <%= n.semester %></p>
+            <a href="/notes/<%= n._id %>">View Note</a>
+        </div>
+    <% }) %>
+</div>
