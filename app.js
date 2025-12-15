@@ -451,8 +451,8 @@ app.use("/", aiRoutes);
 
 // ---------------- BASIC ROUTES ----------------
 
-app.get("/", (req, res) => res.render("index"));
-app.get("/", (req, res) => res.render("notes/home.ejs"));
+// app.get("/", (req, res) => res.render("index"));
+app.get("/", (req, res) => res.render("notes/home"));
 app.get("/about", (req, res) => res.render("notes/about.ejs"));
 
 
