@@ -24,7 +24,7 @@ module.exports.isOwner  = async(req, res, next) => {
     let {id} = req.params;
     let note = await Note.findById(id);
     if (!note.owner._id.equals(res.locals.currUser._id)) {
-        req.flash("error", "You are not the owner this notes");
+        req.flash("error", "You don't have permission");
         return res.redirect(`/notes/${id}`);
     }
     next();
@@ -63,4 +63,12 @@ module.exports.isReviewAuthor  = async(req, res, next) => {
 };
 
 
+
+module.exports.isTeacher = (req, res, next) => {
+  if (req.user.role !== "teacher") {
+    req.flash("error", "Only teachers can upload notes");
+    return res.redirect("/notes");
+  }
+  next();
+};
 

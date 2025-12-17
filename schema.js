@@ -6,6 +6,8 @@ module.exports.noteSchema = joi.object({
         subjectCode: joi.string().optional(),
         branch: joi.string().required(),
         semester: joi.number().required().min(1).max(8),
+        uploadedBy: joi.string().required(),
+        uploaderRole: joi.string().valid("student", "teacher").required()
     }).required(),
 });
 

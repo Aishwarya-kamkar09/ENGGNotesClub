@@ -366,7 +366,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
 // ---------------- SESSION ----------------
-
+app.set("trust proxy", 1);
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
@@ -374,7 +374,9 @@ app.use(session({
     cookie: {
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        httpOnly: true
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
     }
 }));
 
@@ -396,7 +398,9 @@ passport.use(
     new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID.trim(),
         clientSecret: process.env.GOOGLE_CLIENT_SECRET.trim(),
-        callbackURL: "https://enggnotesclub.onrender.com/auth/google/callback"
+        callbackURL: 
+          process.env.NODE_ENV === "production" ? "https://enggnotesclub.onrender.com/auth/google/callback" : 
+              "https://localhost:8080/auth/google/callback"
     },
         async (accessToken, refreshToken, profile, done) => {
             try {

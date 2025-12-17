@@ -36,6 +36,20 @@ const NoteSchema = new Schema({
             module_5: { url: String, filename: String }
         }
     },
+    uploadedBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    uploaderRole:{
+        type: String,
+        ref: ["student", "teacher"],
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
 
     // Syllabus PDF
     syllabus: {
@@ -79,53 +93,3 @@ module.exports = mongoose.model("Note", NoteSchema);
 
 
 
-
-
-
-// const mongoose = require("mongoose");
-// const Schema = mongoose.Schema;
-
-// // Define Quiz Schema
-// const quizSchema = new Schema({
-//   question: {
-//     type: String,
-//     required: true,
-//   },
-//   options: {
-//     type: [String],
-//     required: true,
-//   },
-//   answer: {
-//     type: String,
-//     required: true,
-//   },
-// });
-
-// // Define Resources Schema
-// const resourceSchema = new Schema({
-//   notes: String,
-//   syllabus: String,
-//   previous_papers: [String],
-//   youtube_links: [String],
-//   quizzes: [quizSchema],
-// });
-
-// // Define Main Listing Schema (like Student Buddy format)
-// const notesSchema = new Schema({
-//   subject: {
-//     type: String,
-//     required: true,
-//   },
-//   branch: {
-//     type: String,
-//     required: true,
-//   },
-//   semester: {
-//     type: Number,
-//     required: true,
-//   },
-//   resources: resourceSchema,
-// });
-
-// const Notes = mongoose.model("Notes", notesSchema);
-// module.exports = Notes;

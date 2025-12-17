@@ -27,15 +27,15 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ["student", "teacher"],
-    default: "student"
+    required: true
 },
 profileImage: {
     type: String,
     default: ""
 },
-online: {
-    type: Boolean,
-    default: false
+isVerifiedTeacher: {
+  type: Boolean,
+  default: false
 }
 });
 
