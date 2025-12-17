@@ -61,52 +61,6 @@ router.get("/auth/google/callback",
 );
 
 
-app.post("/forgot-password", async (req, res) => {
-  const { email } = req.body;
-  const user = await User.findOne({ email });
-
-  if (!user || user.authProvider === "google") {
-    return res.json({ message: "Password reset not available for this account" });
-  }
-
-  const token = crypto.randomBytes(32).toString("hex");
-
-  user.resetToken = token;
-  user.resetTokenExpiry = Date.now() + 15 * 60 * 1000; // 15 mins
-  await user.save();
-
-  const resetLink = `https://enggnotesclub.onrender.com/reset-password/${token}`;
-
-  // send email (nodemailer)
-  const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.EMAIL_PASSWORD
-  }
-});
-
-await transporter.sendMail({
-  to: email,
-  subject: "Reset your password",
-  html: `<a href="${resetLink}">Reset Password</a>`
-});
-});
-
-app.post("/reset-password/:token", async (req, res) => {
-  const user = await User.findOne({
-    resetToken: req.params.token,
-    resetTokenExpiry: { $gt: Date.now() }
-  });
-
-  if (!user) return res.send("Invalid or expired token");
-
-  user.password = await bcrypt.hash(req.body.password, 10);
-  user.resetToken = undefined;
-  user.resetTokenExpiry = undefined;
-
-  await user.save();
-});
 
 
 router.post("/profile",
