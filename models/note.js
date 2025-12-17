@@ -38,12 +38,12 @@ const NoteSchema = new Schema({
     },
     uploadedBy:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        refPath: "uploadRole",
         required: true
     },
     uploaderRole:{
         type: String,
-        ref: ["student", "teacher"],
+        enum: ["student", "teacher"],
         required: true
     },
     createdAt: {
