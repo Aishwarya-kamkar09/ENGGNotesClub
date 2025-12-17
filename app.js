@@ -319,6 +319,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // ---------------- IMPORTS ----------------
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -330,7 +331,6 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("./models/user.js");
 const Note = require("./models/note.js");
 
@@ -396,7 +396,7 @@ passport.use(
     new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID.trim(),
         clientSecret: process.env.GOOGLE_CLIENT_SECRET.trim(),
-        callbackURL: "http://localhost:8080/auth/google/callback"
+        callbackURL: "https://enggnotesclub.onrender.com/auth/google/callback"
     },
         async (accessToken, refreshToken, profile, done) => {
             try {
