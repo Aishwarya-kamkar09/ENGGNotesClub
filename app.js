@@ -468,60 +468,6 @@ app.get("/subjects/:subject", (req, res) => {
 
 
 
-app.get("/forgot-password", (req, res) => {
-  res.render("users/forgot");
-});
-const crypto = require("crypto");
-
-app.post("/forgot-password", async (req, res) => {
-  const { email } = req.body;
-
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.send("No account with this email");
-  }
-
-  const token = crypto.randomBytes(32).toString("hex");
-
-  user.resetToken = token;
-  user.resetTokenExpiry = Date.now() + 15 * 60 * 1000; // 15 mins
-  await user.save();
-
-  const resetLink = `http://localhost:8080/reset-password/${token}`;
-
-  console.log("RESET LINK:", resetLink); // 👈 email later
-
-  res.send("Reset link sent to your email");
-});
-app.get("/reset-password/:token", async (req, res) => {
-  const user = await User.findOne({
-    resetToken: req.params.token,
-    resetTokenExpiry: { $gt: Date.now() }
-  });
-
-  if (!user) return res.send("Token expired");
-
-  res.render("users/reset");
-});
-app.post("/reset-password/:token", async (req, res) => {
-  const user = await User.findOne({
-    resetToken: req.params.token,
-    resetTokenExpiry: { $gt: Date.now() }
-  });
-
-  if (!user) return res.send("Invalid token");
-
-  user.password = req.body.password; // hash later
-  user.resetToken = undefined;
-  user.resetTokenExpiry = undefined;
-
-  await user.save();
-  res.redirect("/login");
-});
-
-
-
-
 app.get("/quiz", (req, res) => {
     res.render("quiz/index", {error: null});
 });
