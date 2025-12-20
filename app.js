@@ -398,9 +398,9 @@ passport.use(
     new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID.trim(),
         clientSecret: process.env.GOOGLE_CLIENT_SECRET.trim(),
-        callbackURL: 
-          process.env.NODE_ENV === "production" ? "https://enggnotesclub.onrender.com/auth/google/callback" : 
-              "https://localhost:8080/auth/google/callback"
+        callbackURL: "https://enggnotesclub.onrender.com/auth/google/callback"
+          // process.env.NODE_ENV === "production" ? "https://enggnotesclub.onrender.com/auth/google/callback" : 
+          //     "https://localhost:8080/auth/google/callback"
     },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -444,7 +444,7 @@ app.use((req, res, next) => {
 
 
 // ---------------- ROUTE USE ----------------
-
+app.get("/", (req, res) => res.render("notes/home"));
 app.use("/notes", noteRouter);
 app.use("/notes/:id/reviews", reviewRouter);
 app.use("/", userRouter);
@@ -456,7 +456,7 @@ app.use("/", aiRoutes);
 // ---------------- BASIC ROUTES ----------------
 
 // app.get("/", (req, res) => res.render("index"));
-app.get("/", (req, res) => res.render("notes/home"));
+
 app.get("/about", (req, res) => res.render("notes/about.ejs"));
 
 

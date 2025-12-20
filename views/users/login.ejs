@@ -104,15 +104,18 @@
 
   <div class="auth-card">
 
-    <h2 class="title">Welcome Back </h2>
-    <p class="subtitle">
+    <!-- <h2 class="title">Welcome Back </h2> -->
+    <!-- <p class="subtitle">
       Login to <span>ENGGNOTESCLUB</span>
+    </p> -->
+     <p class="title">
+      <b>Login to your account</b>
     </p>
 
     <!-- GOOGLE LOGIN -->
     <a href="/auth/google" class="google-btn">
-      <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png">
-      Continue with Google
+      <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" >
+      <b style="color:#64748B;">Login with Google</b>
     </a>
 
     <div class="divider">
@@ -123,20 +126,24 @@
     <form action="/login" method="POST">
 
       <div class="input-group">
-        <input type="text" name="username" required>
-        <label>Username</label>
+        Email id
+        <input type="text" name="email_id" placeholder="bobby@example.com" required>
+        
       </div>
 
       <div class="input-group">
-        <input type="password" name="password" required>
-        <label>Password</label>
+        Password
+        <input type="password" name="password" placeholder="Must be at least 6 characters" required>
+       
       </div>
 
-      <button class="email-btn">Sign in</button>
-
-      <a href="/forgot-password" class="forgot-link">
+      <a href="/forgot-password" class="forgot-link" style="margin:10px 0; margin-left: 165px;">
         Forgot password?
       </a>
+
+      <button class="email-btn">Login</button>
+
+      
 
     </form>
 
@@ -177,13 +184,13 @@
 
 /* ---------- Text ---------- */
 .title{
-  font-size:26px;
-  color:#0F172A;
+  font-size:20px;
+  color: #3c3e41;
   margin-bottom:6px;
 }
 
 .subtitle{
-  color:#64748B;
+  color:#272e38;
   margin-bottom:26px;
 }
 
@@ -219,7 +226,7 @@
 
 /* ---------- Divider ---------- */
 .divider{
-  margin:24px 0;
+  margin:20px 0;
   position:relative;
 }
 
@@ -280,7 +287,7 @@
 .email-btn{
   width:100%;
   padding:14px;
-  background:#2563EB;
+  background:#1E3A8A;
   border:none;
   border-radius:14px;
   color:#fff;
@@ -291,7 +298,7 @@
 }
 
 .email-btn:hover{
-  background:#1E40AF;
+  background:#162C46;
 }
 
 /* ---------- Forgot ---------- */

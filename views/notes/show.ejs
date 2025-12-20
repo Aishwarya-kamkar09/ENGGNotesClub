@@ -436,44 +436,7 @@ body {
     border: none;
 }
 
-.three-dots{
-    font-size: 24px;
-    cursor: pointer;
-    padding: 8px;
-}
 
-.chat-box {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 300px;
-  height: 400px;
-  background: white;
-  border: 1px solid #ccc;
-  display: none;
-  flex-direction: column;
-}
-
-.chat-header {
-  background: #4f46e5;
-  color: white;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.chat-messages {
-  flex: 1;
-  padding: 10px;
-  overflow-y: auto;
-}
-
-.chat-input {
-  display: flex;
-}
-.chat-input input {
-  flex: 1;
-}
 
 /* ===== HEADER FLEX ===== */
 .header-flex{
@@ -523,7 +486,6 @@ body {
 <div class="main-content" id="mainContent">
 
 
-  <span class="three-dots" onclick="toggleRumbleChat()" >...</span>
 
     <!-- FULL WIDTH SUBJECT HEADER -->
     <div class="glass-header header-flex">
@@ -593,26 +555,6 @@ body {
 
 
 
-<!-- CHAT CONTAINER (hidden by default) -->
-<div id="rumbleChat" 
-     style="display:none; position:fixed; right:20px; bottom:20px; z-index:999;
-            background:#fff; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
-
-  <!-- CLOSE BUTTON -->
-  <div style="text-align:right; padding:5px;">
-    <button onclick="toggleRumbleChat()"
-            style="border:none; background:none; font-size:18px; cursor:pointer;">
-      ✖
-    </button>
-  </div>
-
-  <!-- CHAT IFRAME -->
-  <div style="height:500px; width:350px;">
-    <div id="rt-98f6097536a88a54cdc3a1a7e4600202"></div>
-    <script src="https://rumbletalk.com/client/?BXhC5qU9"></script>
-  </div>
-
-</div>
 
 
 <script>
@@ -638,10 +580,7 @@ function toggleSidebar(){
 
 
 
-function toggleRumbleChat() {
-  const chat = document.getElementById("rumbleChat");
-  chat.style.display = chat.style.display === "none" ? "block" : "none";
-}
+
 
 
 </script>

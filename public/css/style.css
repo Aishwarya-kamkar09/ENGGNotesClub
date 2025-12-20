@@ -164,3 +164,172 @@ p.subtitle { margin:0 0 16px; color: var(--muted); font-size: 14px; }
 
 
 
+/* FOOTER */
+/* FOOTER WRAPPER */
+.site-footer {
+  width: 100%;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 80px;
+}
+
+/* CENTERED CONTENT */
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px 30px;
+}
+
+/* GRID */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+/* COLUMN */
+.footer-col h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: #111827;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+  font-size: 14px;
+  color: #6b7280;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #2563eb;
+}
+
+/* BOTTOM SECTION */
+.footer-bottom {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.footer-bottom p {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* BOTTOM LINKS */
+.footer-links a {
+  font-size: 13px;
+  color: #6b7280;
+  margin-left: 18px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #2563eb;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-links a {
+    margin: 0 10px;
+  }
+}
+
+
+
+/* DARK MODE */
+
+/* ================= THEME VARIABLES ================= */
+:root {
+    --bg: #f8f9fc;
+    --text: #111;
+    --card: #ffffff;
+    --border: #e5e7eb;
+    --primary: #3A4EFF;
+}
+
+body.dark {
+    --bg: #0f172a;
+    --text: #e5e7eb;
+    --card: #1e293b;
+    --border: #334155;
+    --primary: #60a5fa;
+}
+
+/* ================= APPLY VARIABLES ================= */
+body {
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.card,
+.info-card,
+.auth-card,
+.profile-box,
+.sidebar,
+.glass-header {
+    background: var(--card) !important;
+    border-color: var(--border) !important;
+    color: var(--text);
+}
+
+/* Links */
+a {
+    color: var(--primary);
+}
+
+/* ================= THEME BUTTON ================= */
+.theme-toggle {
+    border: none;
+    background: var(--card);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Sidebar & Header Fix */
+.mt-header,
+.sidebar {
+    background: var(--card) !important;
+}
