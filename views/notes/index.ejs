@@ -1,5 +1,5 @@
 
-
+<!-- 
  <% layout("layouts/boilerplate") %>
 
 <body>
@@ -42,28 +42,40 @@
 
     /* Notes Section */
     .notes-list {
-        width: 85%;
-        margin: 40px auto;
+        /* width: 85%;
+        margin: 40px auto; */
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+        margin-top: 40px;
     }
 
     .note-card {
         background: #ffffff;
-        border-radius: 14px;
-        padding: 28px;
-        margin-bottom: 22px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-        transition: all 0.35s ease;
+        /* border-radius: 14px; */
+        border-radius: 16px;
+        /* padding: 28px; */
+        padding: 22px;
+        /* margin-bottom: 22px; */
+        /* box-shadow: 0 6px 18px rgba(0,0,0,0.06); */
+        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        /* transition: all 0.35s ease; */
+        transition: all 0.3s ease;
         cursor: pointer;
-        border-left: 6px solid transparent;
-        position: relative;
-        overflow: hidden;
+        /* border-left: 6px solid transparent; */
+        /* position: relative; */
+        /* overflow: hidden; */
+        border: 1px solid #e5e7eb;
     }
 
     /* Hover animation */
     .note-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-        border-left: 6px solid #3A4EFF;
+        /* transform: translateY(-8px); */
+        transform: translateY(-6px);
+        /* box-shadow: 0 12px 28px rgba(0,0,0,0.12); */
+        box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+        /* border-left: 6px solid #3A4EFF; */
+        border-color: #3A4EFF;
     }
 
     /* Subject + icon wrapper */
@@ -89,40 +101,56 @@
     }
 
     .note-title {
-        font-size: 24px;
+        /* font-size: 24px;
         font-weight: 700;
+        margin: 0; */
+        font-size: 20px;
+        font-weight: 600;
         margin: 0;
     }
 
     .note-semester {
-        font-size: 15px;
+        /* font-size: 15px;
         color: #6B7280;
-        margin-top: 6px;
+        margin-top: 6px; */
+        font-size: 14px;
+        color: #6B7280;
     }
 
     /* Arrow animation */
     .arrow {
-        font-size: 24px;
-        transition: transform 0.3s ease;
+        /* font-size: 24px;
+        transition: transform 0.3s ease; */
+        font-size: 22px;
+        transition: transform 0.25s ease;
     }
 
     .arrow.rotate {
-        transform: rotate(90deg);
+        /* transform: rotate(90deg); */
+        transform: rotate(180deg);
     }
 
     /* EXPAND SECTION */
     .expand-content {
+        /* max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.35s ease;
+        padding-left: 5px; */
         max-height: 0;
         overflow: hidden;
         opacity: 0;
         transition: all 0.35s ease;
-        padding-left: 5px;
+        /* padding-left: 5px; */
     }
 
     .expand-content.open {
-        max-height: 300px;
+        /* max-height: 300px;
         opacity: 1;
-        margin-top: 12px;
+        margin-top: 12px; */
+        max-height: 250px;
+        opacity: 1;
+        margin-top: 14px;
     }
 
     a.notes-links {
@@ -180,30 +208,30 @@
     <a href="/logout">🚪 Logout</a>
 </div>
 
-<div class="content">
+<div class="content"> -->
 
 
-<!-- HEADER -->
-<div class="notes-header">
+
+<!-- <div class="notes-header">
     <h2>Available Notes</h2>
-</div>
+</div> -->
 
 
 
 
-<!-- NOTES LIST -->
+<!-- 
 <div class="notes-list">
 
     <% allNotes.forEach(notes => { %>
 
         <div class="note-card">
 
-            <!-- CARD TOP ROW -->
+            
             <div class="note-header" onclick="toggleExpand('<%= notes._id %>')">
 
-                <!-- LEFT SECTION: ICON + TITLE -->
+                
                 <div class="subject-text">
-                    <!-- AUTO SUBJECT ICON -->
+                    
                     
                         
 
@@ -218,11 +246,11 @@
                     </div>
                 </div>
 
-                <!-- ARROW -->
+                
                 <span id="arrow-<%= notes._id %>" class="arrow">➤</span>
             </div>
 
-            <!-- EXPANDABLE CONTENT -->
+            
             <div id="expand-<%= notes._id %>" class="expand-content">
                 <p><b>Modules:</b> <%= notes.module %></p>
                 <p><b>Description:</b> <%= notes.description || "No description available." %></p>
@@ -246,4 +274,246 @@
     }
 </script>
 
-</body>
+</body>  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% layout("layouts/boilerplate") %>
+
+<style>
+/* ===== GLOBAL ===== */
+body {
+    background-color: #F4F6F8;
+    font-family: 'Inter', sans-serif;
+    color: #1E293B;
+    margin: 0;
+}
+
+h2, h3 {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 25px 20px;
+}
+
+.sidebar h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #1f2937;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.sidebar a:hover {
+    background: #f1f5f9;
+}
+
+/* ===== CONTENT ===== */
+.content {
+    margin-left: 260px;
+    padding: 30px;
+}
+
+/* ===== HEADER ===== */
+.notes-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.notes-header h2 {
+    font-size: 38px;
+    font-weight: 700;
+}
+
+/* ===== NOTES GRID ===== */
+.notes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+/* ===== NOTE CARD ===== */
+.note-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid #e5e7eb;
+}
+
+.note-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+    border-color: #3A4EFF;
+}
+
+/* ===== CARD HEADER ===== */
+.note-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.note-subject {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.note-semester {
+    font-size: 14px;
+    color: #6b7280;
+    margin-top: 6px;
+}
+
+/* ===== ARROW ===== */
+.arrow {
+    font-size: 22px;
+    transition: transform 0.25s ease;
+}
+
+.arrow.rotate {
+    transform: rotate(180deg);
+}
+
+/* ===== EXPAND SECTION ===== */
+.expand-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.35s ease;
+}
+
+.expand-content.open {
+    max-height: 260px;
+    opacity: 1;
+    margin-top: 14px;
+}
+
+/* ===== BUTTON ===== */
+.view-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 14px;
+    background: #3A4EFF;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.view-btn:hover {
+    background: #004EEB;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .notes-header h2 {
+        font-size: 30px;
+    }
+}
+</style>
+
+<div class="sidebar">
+    <h3>Menu</h3>
+    <a href="/profile">👤 Profile</a>
+    <a href="/notes">📝 All Notes</a>
+    <a href="/logout">🚪 Logout</a>
+</div>
+
+<div class="content">
+
+    <!-- HEADER -->
+    <div class="notes-header">
+        <h2>Available Notes</h2>
+    </div>
+
+    <!-- NOTES -->
+    <div class="notes-list">
+        <% allNotes.forEach(notes => { %>
+            <div class="note-card">
+
+                <div class="note-header" onclick="toggleExpand('<%= notes._id %>')">
+                    <div>
+                        <h3 class="note-subject"><%= notes.subject %></h3>
+                        <p class="note-semester">Semester: <%= notes.semester %></p>
+                    </div>
+                    <span id="arrow-<%= notes._id %>" class="arrow">⌄</span>
+                </div>
+
+                <div id="expand-<%= notes._id %>" class="expand-content">
+                    <p><b>Modules:</b> <%= notes.module %></p>
+                    <p><b>Description:</b> <%= notes.description || "No description available." %></p>
+                    <a href="/notes/<%= notes._id %>" class="view-btn">View Full Note</a>
+                </div>
+
+            </div>
+        <% }) %>
+    </div>
+
+</div>
+
+<script>
+function toggleExpand(id) {
+    const content = document.getElementById("expand-" + id);
+    const arrow = document.getElementById("arrow-" + id);
+
+    content.classList.toggle("open");
+    arrow.classList.toggle("rotate");
+}
+</script>
