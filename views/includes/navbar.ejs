@@ -128,11 +128,14 @@ button{ cursor:pointer; }
 .chat-input input {
   flex: 1;
 }
+body{
+  padding-top: 64px;
+}
 
 
 </style>
 
-<header class="mt-header" style="padding-bottom: 30px;">
+<header class="mt-header" >
 
   <div class="logo">ENGGNOTESCLUB</div>
 
@@ -299,10 +302,6 @@ function toggleRumbleChat() {
   const chat = document.getElementById("rumbleChat");
   chat.style.display = chat.style.display === "none" ? "block" : "none";
 }
-
-
-
-
 
 
 </script>
