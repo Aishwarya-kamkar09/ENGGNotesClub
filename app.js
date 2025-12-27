@@ -575,8 +575,9 @@ app.all(/.*/, (req, res, next) => {
     next(new ExpressError(404, "Page Not Found!"));
 });
 
+const PORT = process.env.PORT || 8080;
 
 // ---------------- START SERVER ----------------
-app.listen(8080, () => {
-    console.log("🚀 Server + Socket.IO running on port 8080");
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server is running on port ${PORT}`);
 });
