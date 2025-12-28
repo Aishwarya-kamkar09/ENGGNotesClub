@@ -1,5 +1,5 @@
 
-<!-- 
+
 <style>
 :root{
   --brand:#002455; --accent:#0b63dd;
@@ -59,10 +59,26 @@ button{ cursor:pointer; }
 .suggestion-item:hover{ background:rgba(3,57,99,0.05); }
 
 
-.create-btn{
+/* .create-btn{
   padding:8px 14px; border-radius:8px; background:var(--brand);
   color:white; font-weight:600;
+} */
+.create-btn{
+  padding:6px 12px;          /* smaller */
+  border-radius:6px;         /* modern rectangle */
+  background:#002455;
+  color:white;
+  font-size:14px;
+  font-weight:600;
+  line-height:1;
+  white-space:nowrap;
 }
+
+.create-btn:hover{
+  background:#0b63dd;
+}
+
+
 
 
 .hamburger{
@@ -137,7 +153,7 @@ body{
 
 <header class="mt-header" >
 
-  <div class="logo">ENGGNOTESCLUB</div>
+  <div class="logo" style="color: #002455;">ENGGNOTESCLUB</div>
 
   <button class="hamburger" onclick="toggleMobile()">☰</button>
 
@@ -166,13 +182,15 @@ body{
       </div>
 
 <li class="nav-item">
-    <a class="nav-link" href="/ai/tools" style="color:inherit; text-decoration:none;">AI Tools ⚡</a>
+    <a class="nav-link" href="/ai/tools" style="color:inherit; text-decoration:none;">AI Tools</a>
 </li>
 
- <button id="themeToggle" class="theme-toggle" title="Toggle theme">
+ 
+<span class="three-dots" onclick="toggleRumbleChat()" ><b>...</b></span>
+
+<button id="themeToggle" class="theme-toggle" title="Toggle theme">
     🌙
 </button>
-<span class="three-dots" onclick="toggleRumbleChat()" >...</span>
 
 
 
@@ -202,11 +220,13 @@ body{
   <% } %>
 
   <li class="nav-item">
-    <a class="nav-link" href="/ai/tools">AI Tools ⚡</a>
+    <a class="nav-link" href="/ai/tools">AI Tools</a>
 </li>
 
 <span class="three-dots" onclick="toggleRumbleChat()" ><b>...</b></span>
-
+<button id="themeToggle" class="theme-toggle" title="Toggle theme">
+    🌙
+</button>
 
 
 </div>
@@ -303,7 +323,7 @@ function toggleRumbleChat() {
 }
 
 
-</script> -->
+</script>
 
 
 
@@ -322,237 +342,3 @@ function toggleRumbleChat() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<header class="navbar">
-  <!-- Logo -->
-  <div class="nav-left">
-    <span class="logo">ENGGNOTESCLUB</span>
-  </div>
-
-  <!-- Search -->
-  <div class="nav-center">
-    <input type="text" placeholder="Search notes..." />
-  </div>
-
-  <!-- Links + Buttons -->
-  <div class="nav-right">
-    <a href="/about">About</a>
-    <a href="/">Platform</a>
-    <a href="/new">Post Notes</a>
-
-    <a class="btn signup" href="/signup">Sign Up</a>
-    <a class="btn login" href="/login">Log In</a>
-
-    <a href="/ai/tools" class="ai">AI Tools ⚡</a>
-
-    <button class="icon">🌙</button>
-    <button class="icon">⋯</button>
-  </div>
-
-
-
-
-  
-<div id="rumbleChat" 
-     style="display:none; position:fixed; right:20px; bottom:20px; z-index:999;
-            background:#fff; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
-
- 
-  <div style="text-align:right; padding:5px;">
-    <button onclick="toggleRumbleChat()"
-            style="border:none; background:none; font-size:18px; cursor:pointer;">
-      ✖
-    </button>
-  </div>
-
-
-  <div style="height:500px; width:350px;">
-    <div id="rt-98f6097536a88a54cdc3a1a7e4600202"></div>
-    <script src="https://rumbletalk.com/client/?BXhC5qU9"></script>
-  </div>
-
-</div>
-
-</header>
-
-<script>
-
-function toggleMobile(){
-  document.getElementById("mobileMenu").classList.toggle("show");
-}
-
-
-async function handleSearch(inputId, suggestionId){
-  const box = document.getElementById(inputId);
-  const sug = document.getElementById(suggestionId);
-
-  box.addEventListener("input", async () => {
-    const q = box.value.trim();
-    if(!q){
-      sug.style.display = "none";
-      return;
-    }
-
-    // call backend route
-    const res = await fetch(`/search?q=${q}`);
-    const data = await res.json();
-
-    sug.innerHTML = "";
-    if(data.length === 0){
-      sug.style.display = "none";
-      return;
-    }
-
-    data.forEach(item=>{
-      const div = document.createElement("div");
-      div.className = "suggestion-item";
-      div.textContent = item.title;
-      div.onclick = ()=> window.location.href = `/notes/${item._id}`;
-      sug.appendChild(div);
-    });
-
-    sug.style.display = "block";
-  });
-}
-
-handleSearch("searchBoxDesktop","suggestionsDesktop");
-handleSearch("searchBoxMobile","suggestionsMobile");
-
-
-
-
-
-
-function handleSearch(event) {
-    if (event.key === "Enter") {
-        const q = event.target.value.trim();
-        if (q.length > 0) {
-            window.location.href = `/search/results?q=${encodeURIComponent(q)}`;
-        }
-    }
-}
-
-document.getElementById("searchBoxDesktop")?.addEventListener("keydown", handleSearch);
-document.getElementById("searchBoxMobile")?.addEventListener("keydown", handleSearch);
-
-
-
-function toggleRumbleChat() {
-  const chat = document.getElementById("rumbleChat");
-  chat.style.display = chat.style.display === "none" ? "block" : "none";
-}
-
- </script> 
-
-
-
-
-
-<style>
-* {
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
-}
-
-body {
-  margin: 0;
-  padding-top: 70px;
-  background: #f5f7fb;
-}
-
-/* NAVBAR */
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 70px;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-  z-index: 1000;
-}
-
-/* LEFT */
-.logo {
-  font-size: 22px;
-  font-weight: 700;
-  color: #002455;
-}
-
-/* CENTER SEARCH */
-.nav-center input {
-  width: 320px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  border: 1px solid #ddd;
-  outline: none;
-  font-size: 14px;
-}
-
-/* RIGHT */
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.nav-right a {
-  text-decoration: none;
-  color: #222;
-  font-weight: 500;
-}
-
-/* BUTTONS */
-.btn {
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-weight: 600;
-}
-
-.signup {
-  background: #0b3c8d;
-  color: #fff;
-}
-
-.login {
-  background: #0b3c8d;
-  color: #fff;
-}
-
-/* ICONS */
-.icon {
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* AI TOOLS */
-.ai {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .nav-center {
-    display: none;
-  }
-}
-</style>
-  
