@@ -62,7 +62,7 @@
 
         /* Buttons */
         .btn-primary {
-            background: #3A4EFF;
+            background: #141a4fff;
             border-radius: 8px;
             padding: 12px 22px;
             font-weight: 600;
@@ -72,7 +72,7 @@
             transition: background 0.3s;
         }
         .btn-primary:hover {
-            background: #004EEB;
+            background: #0d1a34ff;
         }
         .btn-secondary {
             background: #F4F6F8;
@@ -123,12 +123,39 @@
             gap: 20px;
         }
         .card {
-            background-color: #FFFFFF;
+            background: #f4f7fb;
+            color: #1a1a1a;
+            /* background-color: black; */
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             padding: 20px;
-            transition: transform 0.3s;
+            transition: transform 0.3s, background 00.3s, color 00.3s;
         }
+        /* Dark mode background */
+body.dark-mode .subjects {
+    background-color: #0f2027;
+}
+
+/* Heading white in dark mode */
+body.dark-mode .subjects h2 {
+    color: #ffffff;
+}
+
+/* Cards become WHITE in dark mode */
+body.dark-mode .card {
+    background: #ffffff;   /* WHITE card */
+    color: #000000;
+    box-shadow: 0 8px 20px rgba(255,255,255,0.15);
+}
+
+/* Card text colors */
+body.dark-mode .card h3 {
+    color: #0f172a;
+}
+
+body.dark-mode .card p {
+    color: #334155;
+}
         .card:hover {
             transform: translateY(-5px);
         }
@@ -223,7 +250,7 @@
     <!-- Hero Section -->
     <section class="hero" style="padding: 60px; margin-top: 120px; background: var(--card-bg);">
         <div class="container" style="padding: 0; margin-top: 80px;">
-            <h1>The Smartest Place of Engineering</h1>
+            <h1 style="color:inherit; text-decoration:none;">The Smartest Place of Engineering</h1>
             <h2>All Univercities Notes in one Place</h2>
             <h3>Master Engineering Degree with this Expert Notes</h3>
             <p>Access high-quality, organized notes for all your engineering subjects. Learn efficiently and ace your exams.</p>
@@ -238,41 +265,41 @@
     <!-- Subjects Grid -->
     <section class="subjects">
         <div class="container">
-            <h2>Explore Subjects</h2>
+            <h2 style="color:inherit; text-decoration:none;">Explore Subjects</h2>
             <div class="grid">
                 <a href="/subjects/thermodynamics" class="card-link">
                 <div class="card">
-                    <h3>Thermodynamics</h3>
-                    <p>Comprehensive notes on heat transfer, energy systems...See more</p>
+                    <h3 style="color:inherit; text-decoration:none; ">Thermodynamics</h3>
+                    <p >Comprehensive notes on heat transfer, energy systems...See more</p>
                 </div>
                 </a>
                 <a href="/subjects/structural-engineering" class="card-link">
                 <div class="card">
-                    <h3>Structural Engineering</h3>
-                    <p>Learn about beams, loads, and material strength...See more</p>
+                    <h3 style="color:inherit; text-decoration:none;">Structural Engineering</h3>
+                    <p >Learn about beams, loads, and material strength...See more</p>
                 </div>
                 </a>
                 <a href="/subjects/electrical-circuits" class="card-link">
                 <div class="card">
-                    <h3>Electrical Circuits</h3>
+                    <h3 style="color:inherit; text-decoration:none;">Electrical Circuits</h3>
                     <p>Fundamentals of circuits, Ohm's law, and AC/DC analysis...See more</p>
                 </div>
                 </a>
                 <a href="/subjects/fluid-mechanics" class="card-link">
                 <div class="card">
-                    <h3>Fluid Mechanics</h3>
-                    <p>Principles of fluid flow, pressure, and hydraulics...See more</p>
+                    <h3 style="color:inherit; text-decoration:none;">Fluid Mechanics</h3>
+                    <p >Principles of fluid flow, pressure, and hydraulics...See more</p>
                 </div>
                 </a>
                 <a href="/subjects/materials-science" class="card-link">
                 <div class="card">
-                    <h3>Materials Science</h3>
-                    <p>Properties of metals, polymers, and composites...See more</p>
+                    <h3 style="color:inherit; text-decoration:none;">Materials Science</h3>
+                    <p >Properties of metals, polymers, and composites...See more</p>
                 </div>
                 </a>
                  <a href="/subjects/control-systems" class="card-link">
                 <div class="card">
-                    <h3>Control Systems</h3>
+                    <h3 style="color:inherit; text-decoration:none;">Control Systems</h3>
                     <p>Feedback loops, stability, and PID controllers...See more</p>
                 </div>
                 </a>
@@ -283,7 +310,7 @@
     <!-- Notes Page Example -->
     <section class="notes">
         <div class="container">
-            <h2>Sample Notes</h2>
+            <h2 style="color:inherit; text-decoration:none;">Sample Notes</h2>
             <div class="note-card">
                 <h3>Introduction to Thermodynamics</h3>
                 <p>Thermodynamics is the branch of physics that deals with heat, work, and temperature, and their relation to energy, radiation, and physical properties of matter. The behavior of these quantities is governed by the four laws of thermodynamics.</p>

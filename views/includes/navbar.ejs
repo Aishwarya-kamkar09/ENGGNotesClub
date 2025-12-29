@@ -202,7 +202,7 @@ body{
 
 <header class="mt-header" >
 
-  <div class="logo" style="color: #002455;">ENGGNOTESCLUB</div>
+  <div class="logo" style="color: #002455; color:inherit; text-decoration:none;">ENGGNOTESCLUB</div>
 
   <button class="hamburger" onclick="toggleMobile()">☰</button>
 
@@ -221,17 +221,17 @@ body{
 
       <div class="header-buttons">
           <% if (!currUser) { %>
-              <a class="create-btn" href="/signup">Sign Up</a>
-              <a class="create-btn" href="/login">Log In</a>
+              <a class="create-btn" style="color:inherit; text-decoration:none;" href="/signup">Sign Up</a>
+              <a class="create-btn" style="color:inherit; text-decoration:none;" href="/login">Log In</a>
             
           <% } else { %>
-              <a class="create-btn" href="/logout">Log Out</a>
+              <a class="create-btn" style="color:inherit; text-decoration:none;" href="/logout">Log Out</a>
                
           <% } %>
       </div>
 
 
-    <a class="create-btn" href="/ai/tools" >AI Tools</a>
+    <a class="create-btn" style="color:inherit; text-decoration:none;" href="/ai/tools" >AI Tools</a>
 
 
  
@@ -270,9 +270,8 @@ body{
       <a href="/logout">Log Out</a>
   <% } %>
 
-  <li class="nav-item">
-    <a class="nav-link" href="/ai/tools">AI Tools</a>
-</li>
+  <a class="create-btn" style="color:inherit; text-decoration:none;" href="/ai/tools" >AI Tools</a>
+
 
 <span class="three-dots" onclick="toggleRumbleChat()" ><b>...</b></span>
 

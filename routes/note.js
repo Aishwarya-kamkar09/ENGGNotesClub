@@ -137,21 +137,21 @@ router
 
   
 
-// router.get("/:id", async (req, res) => {
-//     const note = await Note.findById(req.params.id);
+router.get("/:id", async (req, res) => {
+    const note = await Note.findById(req.params.id);
 
-//     const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id);
 
-//     user.recentNotes.unshift(note._id);
+    user.recentNotes.unshift(note._id);
 
-//     if (user.recentNotes.length > 10) {
-//         user.recentNotes.pop();
-//     }
+    if (user.recentNotes.length > 10) {
+        user.recentNotes.pop();
+    }
 
-//     await user.save();
+    await user.save();
 
-//     res.render("notes/show", { note });
-// });
+    res.render("notes/show", { note });
+});
 
 
 // ===============================
