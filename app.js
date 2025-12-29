@@ -561,33 +561,26 @@ app.post("/quiz/generate", async (req, res) => {
   });
 });
 
-app.get("/test", (req, res) => {
-  res.send("EJS OK");
-});
 
-app.use((req, res) => {
-  res.status(404).send("Page Not Found");
-})
 
-// app.use((req, res, next) => {
-//     next(new ExpressError(404, "Page Not Found!"));
-//     // res.status(err.statusCode || 500).send(err.message || "Something went wrong!" 
-    
-//   });
-
-// app.use((err, req, res, next) => {
-//     let {statusCode=500, message="something went wrong!!!"} = err;
-//     res.status(statusCode).render("error.ejs",{message});
-// });
-// // ---------------- ERROR HANDLING ----------------
-// app.all(/.*/, (req, res, next) => {
-//     next(new ExpressError(404, "Page Not Found!"));
-// });
 
 
 app.use((req, res, next) => {
-    next(new ExpressError(404, "Page Not Found!"));    
+    next(new ExpressError(404, "Page Not Found!"));
+    // res.status(err.statusCode || 500).send(err.message || "Something went wrong!" 
+    
   });
+
+app.use((err, req, res, next) => {
+    let {statusCode=500, message="something went wrong!!!"} = err;
+    res.status(statusCode).render("error.ejs",{message});
+});
+// ---------------- ERROR HANDLING ----------------
+app.all(/.*/, (req, res, next) => {
+    next(new ExpressError(404, "Page Not Found!"));
+});
+
+
 
 const PORT = process.env.PORT || 8080;
 

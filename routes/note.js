@@ -112,6 +112,14 @@ router.get("/profile", async (req, res) => {
 // =========================
 router.get("/new", isLoggedin, isTeacher, noteController.renderNewForm);
 
+
+// =========================
+// EDIT FORM
+// =========================
+router.get("/:id/edit", isLoggedin, isOwner, WrapAsync(noteController.edit));
+
+
+
 // =========================
 // SHOW / UPDATE / DELETE
 // =========================
@@ -127,28 +135,23 @@ router
   )
   .delete(isLoggedin, isOwner, noteController.delete);
 
-// =========================
-// EDIT FORM
-// =========================
-router.get("/:id/edit", isLoggedin, isOwner, WrapAsync(noteController.edit));
+  
 
+// router.get("/:id", async (req, res) => {
+//     const note = await Note.findById(req.params.id);
 
+//     const user = await User.findById(req.user._id);
 
-router.get("/:id", async (req, res) => {
-    const note = await Note.findById(req.params.id);
+//     user.recentNotes.unshift(note._id);
 
-    const user = await User.findById(req.user._id);
+//     if (user.recentNotes.length > 10) {
+//         user.recentNotes.pop();
+//     }
 
-    user.recentNotes.unshift(note._id);
+//     await user.save();
 
-    if (user.recentNotes.length > 10) {
-        user.recentNotes.pop();
-    }
-
-    await user.save();
-
-    res.render("notes/show", { note });
-});
+//     res.render("notes/show", { note });
+// });
 
 
 // ===============================
