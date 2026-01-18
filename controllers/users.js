@@ -96,6 +96,13 @@ module.exports.postsignup = async(req, res) => {
         req.login(registeredUser, (err) => {
             if (err) return next(err);
 
+            const io = req.app.get("io");
+            io.to("OWNER_ROOM").emit("new-signup", {
+                name: registeredUser.username,
+                email: registeredUser.email,
+                time: new Date()
+            });
+
             // 🔥 Redirect to profile setup page
             req.flash("success", "Account created! Please complete your profile.");
             res.redirect("/profile");
@@ -112,6 +119,14 @@ module.exports.getlogin = (req, res) => {
 };
 
 module.exports.postlogin = async (req, res) => {
+
+    const io = req.app.get("io");
+    io.to("OWNER_ROOM").emit("user-login",{
+        name: req.user.username,
+        email: req.user.email,
+        time: new Date()
+    });
+
     req.flash("success", "Welcome back!");
     res.redirect("/home");
 };

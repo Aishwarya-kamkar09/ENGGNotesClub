@@ -1,0 +1,22 @@
+<% layout("layouts/boilerplate") %>
+
+
+
+  <!-- Your admin dashboard UI -->
+
+  <!-- 🔥 LIVE OWNER NOTIFICATION SYSTEM -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+    const socket = io("https://enggnotesclub.onrender.com");
+
+    socket.emit("join-owner","supersecret123");
+
+    socket.on("new-signup", user => {
+      alert("🆕 New Signup: " + user.name);
+    });
+
+    socket.on("user-login", user => {
+      alert("🔔 User Login: " + user.name);
+    });
+  </script>
+

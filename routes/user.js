@@ -43,6 +43,14 @@ router
         // successFlash: true
       }) ,
       (req, res) => {
+
+        const io = req.app.get("io");
+        io.to("OWNER_ROOM").emit("user-login",{
+          name: req.user.username,
+          email: req.user.email,
+          time: new Date()
+        });
+
         req.flash("success", "Welcome back!");
         res.redirect("/notes")
       }

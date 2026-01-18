@@ -43,7 +43,7 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0",
     "passport-microsoft": "^2.1.0",
-    "socket.io": "^4.8.1",
+    "socket.io": "^4.8.3",
     "validator": "^13.15.23"
   },
   "devDependencies": {
