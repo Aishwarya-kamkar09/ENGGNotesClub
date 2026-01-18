@@ -1,22 +1,72 @@
 <% layout("layouts/boilerplate") %>
 
 
+    <div id="notification-panel">
+        <h5>Live Activity</h5>
+        <ul id="notification-list"></ul>
+    </div>
+<style>
+#notification-panel {
+    width: 300px;
+    background: #111;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    position: fixed;
+    top: 70px;   /* below navbar */
+    right: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    font-family: Arial, sans-serif;
+}
+
+#notification-panel h5 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+}
+
+#notification-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#notification-list li {
+    font-size: 13px;
+    margin-bottom: 8px;
+    background: #1e1e1e;
+    padding: 6px 8px;
+    border-radius: 5px;
+}
+</style>
 
   <!-- Your admin dashboard UI -->
 
   <!-- 🔥 LIVE OWNER NOTIFICATION SYSTEM -->
-  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-  <script>
-    const socket = io("https://enggnotesclub.onrender.com");
+ <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+  const socket = io("https://enggnotesclub.onrender.com");
 
-    socket.emit("join-owner","supersecret123");
+  socket.emit("join-owner", "supersecret123");
 
-    socket.on("new-signup", user => {
-      alert("🆕 New Signup: " + user.name);
-    });
+  const list = document.getElementById("notification-list");
 
-    socket.on("user-login", user => {
-      alert("🔔 User Login: " + user.name);
-    });
-  </script>
+  function addNotification(text) {
+    const li = document.createElement("li");
+    const time = new Date().toLocaleTimeString();
+    li.innerText = `${text} (${time})`;
 
+    list.prepend(li); // newest on top
+  }
+
+  socket.on("new-signup", user => {
+    addNotification("🆕 New Signup: " + user.name);
+  });
+
+  socket.on("user-login", user => {
+    addNotification("🔔 User Login: " + user.name);
+  });
+</script>
