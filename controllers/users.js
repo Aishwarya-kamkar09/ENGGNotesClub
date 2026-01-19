@@ -76,7 +76,7 @@
 
 const User = require("../models/user");
 const validator = require("validator");
-const {sendAdminAlert} = require("../utils/email");
+
 
 module.exports.getsignup = (req, res) => {
     res.render("users/signup.ejs");
@@ -94,19 +94,10 @@ module.exports.postsignup = async(req, res) => {
         const newUser = new User({ email, username });
         const registeredUser = await User.register(newUser, password);
 
-        req.login(registeredUser, async (err) => {
+        req.login(registeredUser, (err) => {
             if (err) return next(err);
 
-            await sendAdminAlert(
-                 "🆕 New Signup Alert",
-                    `
-                    <h3>New User Registered</h3>
-                    <p><strong>Name:</strong> ${registeredUser.username}</p>
-                    <p><strong>Email:</strong> ${registeredUser.email}</p>
-                    <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
-                    `
-            );
-
+            
             // 🔥 Redirect to profile setup page
             req.flash("success", "Account created! Please complete your profile.");
             res.redirect("/profile");
@@ -129,16 +120,7 @@ module.exports.postlogin = async (req, res) => {
     }
 
     // 🔥 SEND EMAIL TO OWNER
-    await sendAdminAlert(
-        "🔔 New Login Alert",
-        `
-        <h3>User Logged In</h3>
-        <p><strong>Name:</strong> ${req.user.username}</p>
-        <p><strong>Email:</strong> ${req.user.email}</p>
-        <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
-        `
-    );
-
+    
     req.flash("success", "Welcome back!");
     res.redirect("/home");
 };
