@@ -19,25 +19,6 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const Note = require("./models/note.js");
 
-const http = require("http");
-const {Server} = require("socket.io");
-const server = http.createServer(app);
-const io = new Server(server, {
-    cors: {origin: "*" }
-});
-app.set("io",io);
-io.on("connection", (socket) => {
-    console.log("Socket connected");
-    // socket.on("join-owner", () => {
-    //     socket.join("OWNER_ROOM");
-    // });
-    socket.on("join-owner", (secret) => {
-    if (secret === process.env.OWNER_SOCKET_KEY) {
-        socket.join("OWNER_ROOM");
-        console.log("Owner connected to notification system");
-    }
-});
-});
 
 // ---------------- ROUTES ----------------
 const noteRouter = require("./routes/note.js");
@@ -150,14 +131,6 @@ app.use((req, res, next) => {
 
 // ---------------- ROUTE USE ----------------
 app.get("/", (req, res) => res.render("notes/home"));
-
-app.get("/users/dashboard", (req, res) => {
-    if(!req.user || req.user.email !== "aishwaryakamkar45@gmail.com"){
-        return res.status(403).send("Access Denied");
-    }
-    res.render("users/dashboard.ejs");
-});
-
 app.use("/notes", noteRouter);
 app.use("/notes/:id/reviews", reviewRouter);
 app.use("/", userRouter);
@@ -298,7 +271,7 @@ app.all(/.*/, (req, res, next) => {
 const PORT = process.env.PORT || 8080;
 
 // ---------------- START SERVER ----------------
-server.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server is running on port ${PORT}`);
 });
 

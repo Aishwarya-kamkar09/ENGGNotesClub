@@ -76,6 +76,7 @@
 
 const User = require("../models/user");
 const validator = require("validator");
+const {sendAdminAlert} = require("../utils/email");
 
 module.exports.getsignup = (req, res) => {
     res.render("users/signup.ejs");
@@ -93,15 +94,18 @@ module.exports.postsignup = async(req, res) => {
         const newUser = new User({ email, username });
         const registeredUser = await User.register(newUser, password);
 
-        req.login(registeredUser, (err) => {
+        req.login(registeredUser, async (err) => {
             if (err) return next(err);
 
-            const io = req.app.get("io");
-            io.to("OWNER_ROOM").emit("new-signup", {
-                name: registeredUser.username,
-                email: registeredUser.email,
-                time: new Date()
-            });
+            await sendAdminAlert(
+                 "🆕 New Signup Alert",
+                    `
+                    <h3>New User Registered</h3>
+                    <p><strong>Name:</strong> ${registeredUser.username}</p>
+                    <p><strong>Email:</strong> ${registeredUser.email}</p>
+                    <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+                    `
+            );
 
             // 🔥 Redirect to profile setup page
             req.flash("success", "Account created! Please complete your profile.");
@@ -120,12 +124,20 @@ module.exports.getlogin = (req, res) => {
 
 module.exports.postlogin = async (req, res) => {
 
-    const io = req.app.get("io");
-    io.to("OWNER_ROOM").emit("user-login",{
-        name: req.user.username,
-        email: req.user.email,
-        time: new Date()
-    });
+      if (!req.user) {
+        return res.redirect("/login");
+    }
+
+    // 🔥 SEND EMAIL TO OWNER
+    await sendAdminAlert(
+        "🔔 New Login Alert",
+        `
+        <h3>User Logged In</h3>
+        <p><strong>Name:</strong> ${req.user.username}</p>
+        <p><strong>Email:</strong> ${req.user.email}</p>
+        <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+        `
+    );
 
     req.flash("success", "Welcome back!");
     res.redirect("/home");
